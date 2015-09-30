@@ -17,12 +17,12 @@
       <div class="container">
 
         <br><br>
-        <h1 class="header center teal-text">Branch Changer</h1>
+        <h2 class="header center teal-text">Hi {{userLDAP}}!</h2>
             
         
         <div class="row center">
-          <h5 class="header col s12 light">A webapp to find to register for branch change at IIT Bombay</h5>
-          <div class="col offset-s10"><a class="modal-trigger" style="color:teal" href="#modal1">More Info</a></div>
+          <h5 class="header col s12 light offset">Edit and save your settings here!</h5>
+          <div class="col offset-s10"><a class="modal-trigger" style="color:teal" href="#modal1">Info</a></div>
         </div>
         
         <br><br>
@@ -31,8 +31,8 @@
 
       <div class="container">
         <div class="row">
-            <form id ="myform" action = "submit.php" class="col s12" method="post">
-
+            <form id ="myform" action = "/submit/" class="col s12" method="post">
+            	{% csrf_token %}
               <div class="row">
 
               <div class="input-field col l2 offset-l1">
@@ -78,47 +78,47 @@
               <div class="row">
               	<!-- <div class="col l1"><a class="btn-floating btn-small waves-effect waves-light teal"><i class="material-icons">add</i></a></div> -->
               	<div class="input-field col l3">
-              	    <select id="currb" name ="currb">
+              	    <select id="pref1" name ="pref1">
               	      <option value="1">Branch 1</option>
               	      <option value="2">Branch 2</option>
               	      <option value="3">Branch 3</option>
               	      <option value="3">Branch 4</option>
 
               	    </select>
-              	    <label>Current Branch</label>
+              	    <label>Preference 1</label>
               	</div>
 
               	<div class="input-field col l3">
-              	    <select id="currb" name ="currb">
+              	    <select id="pref2" name ="pref2">
               	      <option value="1">Branch 1</option>
               	      <option value="2">Branch 2</option>
               	      <option value="3">Branch 3</option>
               	      <option value="3">Branch 4</option>
 
               	    </select>
-              	    <label>Current Branch</label>
+              	    <label>Preference 2</label>
               	</div>
 
               	<div class="input-field col l3">
-              	    <select id="currb" name ="currb">
+              	    <select id="pref3" name ="pref3">
               	      <option value="1">Branch 1</option>
               	      <option value="2">Branch 2</option>
               	      <option value="3">Branch 3</option>
               	      <option value="3">Branch 4</option>
 
               	    </select>
-              	    <label>Current Branch</label>
+              	    <label>Preference 3</label>
               	</div>
 
               	<div class="input-field col l3">
-              	    <select id="currb" name ="currb">
+              	    <select id="pref4" name ="pref4">
               	      <option value="1">Branch 1</option>
               	      <option value="2">Branch 2</option>
               	      <option value="3">Branch 3</option>
               	      <option value="3">Branch 4</option>
 
               	    </select>
-              	    <label>Current Branch</label>
+              	    <label>Preference 4</label>
               	</div>
               	<!-- <div class="col l1"><a class="btn-floating btn-small waves-effect waves-light teal"><i class="material-icons">minus</i></a></div> -->
 
@@ -126,7 +126,7 @@
 
               <br><br>
               <div class="row center">
-                <button type="submit" id="submit-button" class="btn-large waves-effect waves-light teal lighten-1 ">Register <i class="mdi-content-send right"></i></button>
+                <button type="submit" id="submit-button" class="btn-large waves-effect waves-light teal lighten-1 ">Save <i class="mdi-content-send right"></i></button>
 
               </div>
 
