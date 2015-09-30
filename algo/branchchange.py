@@ -13,7 +13,6 @@ class Branch:
 		self.curStrength = information[2]
 		self.maxStrength = sancStrength + round(sancStrength/10,0)
 
-
 class Student:
 	roll = ""
 	name = ""
@@ -33,6 +32,18 @@ class Student:
 
 branches = []
 numbranches = 0
+
+# Validate whether a student is eligible for branch change or not according
+# to the CPI criterion
+
+def isEligible(candidate):
+	category = candidate.category
+	cpi = candidate.cpi
+	if(category == "GEN" || category == "OBC"):
+		return (cpi >= 8.00)
+	else
+		return (cpi >= 7.00)
+
 
 with open(sys.argv[2],'r') as csvfile:
 	branchreader = csv.reader(csvfile)
