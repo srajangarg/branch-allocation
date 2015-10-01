@@ -1,16 +1,75 @@
-
-<<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
 	<title></title>
 </head>
+<!--script type="text/javascript" src="addField.js" ></script-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+	// Update the data as the all branches possible
+	var data = [
+	    { name: "Mal Reynolds" },
+	    { name: "Piet Heyn" },
+	    { name: "Jean-Luc Picard" },
+	    { name: "ASDFGHJK"},
+	    { name: "cryudh"}
+	];
+
+	function addForm(divName)
+	{
+	  var currDiv = document.getElementById(divName);
+	  var newDiv = document.createElement('div');
+	  //newDiv.className = 'input-field col l3';
+
+	  var searchEles = jQuery("select[id='currb']") ;
+
+	  //To keep track of the already filled brances
+	  var branchesFilled = [];
+	  for (var i = 0; i < searchEles.length; i++)
+	  {
+	  	 var val = searchEles[i].value;
+	  	 if(branchesFilled.indexOf(val) == -1)
+	  	 	branchesFilled.push(val);
+	  	 else{
+	  	 	//-------->>>>>>>>>>check for validation here as the value is filled twice here----------<<<<<<<<<<<<<<<<<// 
+	  	 }
+
+	  };
+
+	  console.log(branchesFilled);
+	  var elm = document.createElement('select');
+	  elm.id = 'currb';
+
+	  //elm.name = 'currb';
+	  //var elm = document.getElementById("captains"); // elm is a <select> element
+
+	  for (var i = 0, len = data.length; i < len; i++) {
+	      if(branchesFilled.indexOf(i.toString()) == -1){
+		      var name = data[i].name;
+
+		      // create an option element
+		      var option = document.createElement("option");
+		      option.value = i;
+		      option.textContent = name;
+
+		      // add option
+		      elm.add(option);
+	  	}
+	  }
+	  newDiv.appendChild(elm);
+	  currDiv.appendChild(newDiv);
+	};
+
+</script>
 <body>
 
 <form class="new" method="post" action="/jobs">
-    <div id="branches"></div>
-    <input type="button" value="Add" onclick="addForm;" />
-    <input type="button" value="Save" />
+    <div id="dynamicInput"></div>
+    <!-- <input type="button" value="Add1" onclick="addInput('dynamicInput');" /> -->
+    <input type="button" value="Add" onclick="addForm('dynamicInput');" />
+
 </form>
 
 </body>
