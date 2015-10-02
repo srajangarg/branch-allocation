@@ -55,10 +55,11 @@
             </div>
         </div>
 
-         <div id ="spinner" class="container">
-          <div class="progress">
-                      <div class="indeterminate"></div>
-                  </div>
+
+         <div class="container">
+            <div class="row">
+              <div id ="spinner" class="col l8 offset-l2"></div>
+            </div>
         </div>
         
         <br><br>
@@ -95,12 +96,10 @@
 
       $("#register").hide();
 
-      /*var divToAdd = document.getElementById('spinner');
+      var divToAdd = document.getElementById('spinner');
       var e = document.createElement('div');
-      e.innerHTML = '<div class="progress">
-            <div class="indeterminate"></div>
-        </div>';
-      divToAdd.appendChild(e);*/
+      e.innerHTML = '<br><br><div class="progress"><div class="indeterminate"></div></div>';
+      divToAdd.appendChild(e);
 
     });
 

@@ -38,7 +38,7 @@ def submit(request):
 	#     	return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno})
 	#     else:
 	#     	return render(request,"bcapp/loginfail.html")
-	time.sleep(3);
+	
 	return render(request,"bcapp/index.html", {"userLDAP": "garg", "rollno": "140050017"})
 
 def saved(request):
