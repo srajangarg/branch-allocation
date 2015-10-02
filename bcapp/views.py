@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from miscfx import *
-import time
-# Create your views here.
 
 def index(request):
 
@@ -23,32 +21,37 @@ def user(request):
 
 def submit(request):
 
-	# if request.method == 'GET':
+	branches = ["1","2","3","4","5"]
+	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
+
+	if request.method == 'GET':
 	    
-	#     return render(request, "bcapp/lost.html")
+	    return render(request, "bcapp/lost.html")
 
-	# if request.method == 'POST':
+	if request.method == 'POST':
 	    
-	#     userLDAP = request.POST.get("ldapid")
-	#     userPASS = request.POST.get("ldappass")
+	    userLDAP = request.POST.get("ldapid")
+	    userPASS = request.POST.get("ldappass")
 
-	#     (auth,rollno) = doLogin(userLDAP, userPASS)
+	    #(auth,rollno) = doLogin(userLDAP, userPASS)
+	    rollno = userLDAP
+	    auth = True
+	    if auth:
 
-	#     if auth:
-	#     	return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno})
-	#     else:
-	#     	return render(request,"bcapp/loginfail.html")
+	    	oldPrefs = getContents(rollno)
+	    	print oldPrefs
+	    	return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
+	    else:
+	    	return render(request,"bcapp/loginfail.html")
 	
 	return render(request,"bcapp/index.html", {"userLDAP": "garg", "rollno": "140050017"})
 
 def saved(request):
 
 	if request.method == 'GET':
-
 		return render(request, "bcapp/lost.html")
 
 	if request.method == 'POST':
-
 		# len(request.POST) -6 is number of preferences
 		editCSV(request.POST)
 		return render(request,"bcapp/saved.html")

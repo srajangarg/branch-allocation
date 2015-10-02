@@ -39,22 +39,24 @@
               </div>
               <div class="row">
               <div class="input-field col l3 offset-l3">
-                <input id="rollno" name="rollno" type="text" class="validate">
+                <input id="rollno1" name="rollno1" value="{{rollno}}" type="text" class="validate" disabled>
+                <label for="rollno1">Roll No</label>
+                <input hidden id="rollno" name="rollno" value="{{rollno}}" type="text" class="validate">
                 <label for="rollno">Roll No</label>
               </div>
 
               <div class="input-field col l3">
-                <input id="uname" name="uname" type="text" class="validate">
+                <input id="uname" name="uname" value ="{{oldPrefs.1}}"type="text" class="validate">
                 <label for="uname">Name</label>
               </div>
         </div>
         <div class="row">
             <div class="input-field col l3 offset-l3">
                   <select id="currb" name ="currb">
-                    <option value="1">Branch 1</option>
-                    <option value="2">Branch 2</option>
-                    <option value="3">Branch 3</option>
-                    <option value="3">Branch 4</option>
+                    
+                    {% for opt in branches %}
+                     <option value="{{opt}}" {% if opt == oldPrefs.2 %}selected {% endif %}>Branch {{opt}}</option>
+                    {% endfor %}
 
                   </select>
                   <label>Current Branch</label>
@@ -62,16 +64,16 @@
 
 
             <div class="input-field col l2">
-                <input id="cpi" name="cpi" type="text" class="validate">
+                <input id="cpi" name="cpi" value ="{{oldPrefs.3}}"type="text" class="validate">
                 <label for="cpi">CPI</label>
             </div>
 
             <div class="input-field col l1">
                 <select id="category" name ="category">
-                  <option value="1">GEN</option>
-                  <option value="2">OBC</option>
-                  <option value="3">SC</option>
-                  <option value="3">ST</option>
+
+                  {% for cg in categories %}
+                     <option value="{{cg}}" {% if cg == oldPrefs.4 %}selected {% endif %}>{{cg}}</option>
+                  {% endfor %}
 
                 </select>
                 <label>Category</label>
@@ -96,7 +98,23 @@
 
           <div id="prefss" class="col l6 offset-l3">
              
+              {% for i in range%}
+                  {% load list_index %}
+                   <div class="input-field col l3">
+                        <select id="pref{{i|add:'1'}}" name ="pref{{i|add:'1'}}">
+                          
+                          {% for opt in branches %}
+                              <option value="{{opt}}" {% if opt == bcpref|index:i %}selected {% endif %}>Branch {{opt}}</option>
+                          {% endfor %}
+
+                        </select>
+                        <label>Preference {{i|add:'1'}}</label>
+                    </div>
+                  
+              {% endfor %}
+
           </div>
+
       </div>
 
               <div class="row center" >
@@ -112,11 +130,7 @@
     <div id="modal1" class="modal">
       <div class="modal-content">
         <h4 style="color:teal">About</h4>
-        <p>This app gets the information from the users itself (You!). 
-        If you don't find any roomate or wingmate at first, don't be disappointed. 
-        Instead, be sure to fill up your own information, and then check back up later. 
-        Hopefully, most of the students will fill it up and you can find your mates! Do spread the word about the app, because the more people 
-        who use it, the better chances of finding your roommate.
+        <p>Isko change karna hai.
          </p>
       </div>
       <div class="modal-footer">
@@ -145,8 +159,8 @@
 
    <script>
 
-   var numSelects = 0;
-   var divid;
+   var numSelects = {{oldPrefs|length|add:"-5"}};
+   var divid, div;
     $('#add').click(function () { 
      
      if(numSelects >= 8)
@@ -168,8 +182,8 @@
       if(numSelects == 0)
         return;
      numSelects -= 1;
-     var div = document.getElementById('prefss');
-     div.removeChild(div.lastChild);
+     div = document.getElementById('prefss');
+     div.removeChild(div.lastElementChild);
 
     });
 

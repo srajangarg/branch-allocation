@@ -1,13 +1,11 @@
 =Front end
-- Remove already selected options from 'select'
-- Give user option to add/ remove number of preferences
+- Submit button ke uppar / overlapping stuff
 - Input validation
-- Submit button stuff
+- Submit button stuff /diable
 
-=LDAP authentication
 =Admin Login?/ Acess how?
 =Backend Start Django
 - Admin page
-- User Page
+
 
 =Algo implementation
