@@ -21,7 +21,7 @@ def user(request):
 
 def submit(request):
 
-	branches = ["1","2","3","4","5"]
+	branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"]
 	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
 
 	if request.method == 'GET':

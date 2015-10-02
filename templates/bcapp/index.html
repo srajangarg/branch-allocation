@@ -55,7 +55,7 @@
                   <select id="currb" name ="currb">
                     
                     {% for opt in branches %}
-                     <option value="{{opt}}" {% if opt == oldPrefs.2 %}selected {% endif %}>Branch {{opt}}</option>
+                     <option value="{{opt}}" {% if opt == oldPrefs.2 %}selected {% endif %}>{{opt}}</option>
                     {% endfor %}
 
                   </select>
@@ -104,7 +104,7 @@
                         <select id="pref{{i|add:'1'}}" name ="pref{{i|add:'1'}}">
                           
                           {% for opt in branches %}
-                              <option value="{{opt}}" {% if opt == bcpref|index:i %}selected {% endif %}>Branch {{opt}}</option>
+                              <option value="{{opt}}" {% if opt == bcpref|index:i %}selected {% endif %}>{{opt}}</option>
                           {% endfor %}
 
                         </select>
@@ -160,20 +160,33 @@
    <script>
 
    var numSelects = {{oldPrefs|length|add:"-5"}};
-   var divid, div;
+   var divid, div, option, e;
+   var branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"];
+
     $('#add').click(function () { 
      
-     if(numSelects >= 8)
+    if(numSelects >= 8)
       return;
 
-     numSelects += 1;
-     divid = "pref"+numSelects;
-     var divToAdd = document.getElementById('prefss');
+    numSelects += 1;
+    divid = "pref"+numSelects;
+    var divToAdd = document.getElementById('prefss');
 
-     var e = document.createElement('div');
-      e.innerHTML = '<div class="input-field col l3"><select id="'+divid+'" name ="'+divid+'"><option value="1">Branch 1</option><option value="2">Branch 2</option><option value="3">Branch 3</option><option value="3">Branch 4</option></select><label>Preference '+numSelects+'</label></div>';
-      divToAdd.appendChild(e);
-     $('#'+divid).material_select();
+    e = document.createElement('div');
+    e.innerHTML = '<div class="input-field col l3"><select id="'+divid+'" name ="'+divid+'"></select><label>Preference '+numSelects+'</label></div>';
+    divToAdd.appendChild(e);
+
+    e = document.getElementById(divid);
+
+    for (var i = 0; i < branches.length; i++) 
+    {
+      option = document.createElement("option");
+      option.setAttribute("value", branches[i]);
+      option.text = branches[i];
+      e.add(option);
+    }
+    
+    $('#'+divid).material_select();
 
     });
 
