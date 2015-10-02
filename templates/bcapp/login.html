@@ -25,7 +25,8 @@
           <div class="col offset-s10"><a class="modal-trigger" style="color:teal" href="#modal1">More Info</a></div>
         </div>
         <br><br>
-        <div class="container">
+
+        <div id ="register" class="container">
           <div class="row">
               <form id ="myform" action = "/submit/" class="col s12" method="post">
                 {% csrf_token %}
@@ -52,6 +53,10 @@
 
               </form>
             </div>
+        </div>
+
+         <div id ="spinner" class="container">
+          
         </div>
         
         <br><br>
@@ -83,6 +88,20 @@
         $('#myform input').attr('style', '-webkit-box-shadow: inset 0 0 0 1000px #ffffff !important');
         $('.modal-trigger').leanModal();
     });
+
+    $('#submit-button').click(function () { 
+
+      $("#register").hide();
+
+      var divToAdd = document.getElementById('spinner');
+      var e = document.createElement('div');
+      e.innerHTML = '<div class="progress">
+            <div class="indeterminate"></div>
+        </div>';
+      divToAdd.appendChild(e);
+
+    });
+
     </script>
 
   </body>

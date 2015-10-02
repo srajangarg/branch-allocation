@@ -13,29 +13,32 @@
 
   <body>
 
+    
+
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
 
-        <br><br>
         <h2 class="header center teal-text">Hi {{userLDAP}}!</h2>
-            
         
         <div class="row center">
           <h5 class="header col s12 light offset">Edit and save your settings here!</h5>
           <div class="col offset-s10"><a class="modal-trigger" style="color:teal" href="#modal1">Info</a></div>
         </div>
-        
-        <br><br>
 
       </div>
 
       <div class="container">
         <div class="row">
-            <form id ="myform" action = "/submit/" class="col s12" method="post">
+            <form id ="myform" action = "/saved/" class="col s12" method="post">
             	{% csrf_token %}
-              <div class="row">
 
-              <div class="input-field col l2 offset-l1">
+              <div class="row">
+              <div class="col l3 offset-l2">
+                Personal Details:
+              </div>
+              </div>
+              <div class="row">
+              <div class="input-field col l3 offset-l3">
                 <input id="rollno" name="rollno" type="text" class="validate">
                 <label for="rollno">Roll No</label>
               </div>
@@ -44,23 +47,24 @@
                 <input id="uname" name="uname" type="text" class="validate">
                 <label for="uname">Name</label>
               </div>
+        </div>
+        <div class="row">
+            <div class="input-field col l3 offset-l3">
+                  <select id="currb" name ="currb">
+                    <option value="1">Branch 1</option>
+                    <option value="2">Branch 2</option>
+                    <option value="3">Branch 3</option>
+                    <option value="3">Branch 4</option>
 
-                <div class="input-field col l3">
-                    <select id="currb" name ="currb">
-                      <option value="1">Branch 1</option>
-                      <option value="2">Branch 2</option>
-                      <option value="3">Branch 3</option>
-                      <option value="3">Branch 4</option>
-
-                    </select>
-                    <label>Current Branch</label>
-                </div>
+                  </select>
+                  <label>Current Branch</label>
+            </div>
 
 
-              <div class="input-field col l1">
+            <div class="input-field col l2">
                 <input id="cpi" name="cpi" type="text" class="validate">
                 <label for="cpi">CPI</label>
-              </div>
+            </div>
 
             <div class="input-field col l1">
                 <select id="category" name ="category">
@@ -72,62 +76,31 @@
                 </select>
                 <label>Category</label>
             </div>
+        </div>
+          
+        <div class="row">
+            <div class="col l5 offset-l2">
+              Preferences:
+            </div>
+            <br>
+            <div class="col l1 offset-l5 center">
+            <a id ="add" href="#" style="color:teal">Add</a>
+            </div>
+            <div class="col l1">
+            <a id ="remove" href="#" style="color:teal">Remove</a>
+            </div>
+        </div>
 
-              </div>
-              <br><br>
-              <div class="row">
-              	<!-- <div class="col l1"><a class="btn-floating btn-small waves-effect waves-light teal"><i class="material-icons">add</i></a></div> -->
-              	<div class="input-field col l3">
-              	    <select id="pref1" name ="pref1">
-              	      <option value="1">Branch 1</option>
-              	      <option value="2">Branch 2</option>
-              	      <option value="3">Branch 3</option>
-              	      <option value="3">Branch 4</option>
 
-              	    </select>
-              	    <label>Preference 1</label>
-              	</div>
+       <div class="row">
 
-              	<div class="input-field col l3">
-              	    <select id="pref2" name ="pref2">
-              	      <option value="1">Branch 1</option>
-              	      <option value="2">Branch 2</option>
-              	      <option value="3">Branch 3</option>
-              	      <option value="3">Branch 4</option>
+          <div id="prefss" class="col l6 offset-l3">
+             
+          </div>
+      </div>
 
-              	    </select>
-              	    <label>Preference 2</label>
-              	</div>
-
-              	<div class="input-field col l3">
-              	    <select id="pref3" name ="pref3">
-              	      <option value="1">Branch 1</option>
-              	      <option value="2">Branch 2</option>
-              	      <option value="3">Branch 3</option>
-              	      <option value="3">Branch 4</option>
-
-              	    </select>
-              	    <label>Preference 3</label>
-              	</div>
-
-              	<div class="input-field col l3">
-              	    <select id="pref4" name ="pref4">
-              	      <option value="1">Branch 1</option>
-              	      <option value="2">Branch 2</option>
-              	      <option value="3">Branch 3</option>
-              	      <option value="3">Branch 4</option>
-
-              	    </select>
-              	    <label>Preference 4</label>
-              	</div>
-              	<!-- <div class="col l1"><a class="btn-floating btn-small waves-effect waves-light teal"><i class="material-icons">minus</i></a></div> -->
-
-              </div>
-
-              <br><br>
-              <div class="row center">
+              <div class="row center" >
                 <button type="submit" id="submit-button" class="btn-large waves-effect waves-light teal lighten-1 ">Save <i class="mdi-content-send right"></i></button>
-
               </div>
 
             </form>
@@ -157,36 +130,6 @@
 
 
     <script>
-    //$("#submit-button").hide();
-
-    /*function validateInput() //(name,email,fbid)
-    { 
-
-      roomno = $("#roomno").val();
-      var w=false;
-
-      if( $.isNumeric(roomno) && roomno.length > 2 && roomno.length < 5)
-      { 
-        var num = parseInt(roomno)
-        var x = Math.floor(num/100);
-        var y = num%100;
-
-        if(x >=1 && x<=10 && y>=1 && y<=18)
-        {
-          w = true;
-        }
-        
-      }
-
-      if( w )
-      {
-        $("#submit-button").fadeIn(0);
-      }
-      else
-      {
-        $("#submit-button").fadeOut();
-      }
-    }*/
 
     $(document).ready(function() {
 
@@ -198,15 +141,40 @@
         $('#myform input').attr('style', '-webkit-box-shadow: inset 0 0 0 1000px #ffffff !important');
 
     });
-    /*$('html').bind('keypress', function(e)
-    {
-       if(e.keyCode == 13)
-       {
-          return false;
-       }
-    });*/
-
     </script>
+
+   <script>
+
+   var numSelects = 0;
+   var divid;
+    $('#add').click(function () { 
+     
+     if(numSelects >= 8)
+      return;
+
+     numSelects += 1;
+     divid = "pref"+numSelects;
+     var divToAdd = document.getElementById('prefss');
+
+     var e = document.createElement('div');
+      e.innerHTML = '<div class="input-field col l3"><select id="'+divid+'" name ="'+divid+'"><option value="1">Branch 1</option><option value="2">Branch 2</option><option value="3">Branch 3</option><option value="3">Branch 4</option></select><label>Preference '+numSelects+'</label></div>';
+      divToAdd.appendChild(e);
+     $('#'+divid).material_select();
+
+    });
+
+    $('#remove').click(function () { 
+
+      if(numSelects == 0)
+        return;
+     numSelects -= 1;
+     var div = document.getElementById('prefss');
+     div.removeChild(div.lastChild);
+
+    });
+
+   </script>
+    
 
   </body>
 </html>						

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^bcapp/', views.index, name="index"),
     url(r'^user/', views.user, name="user"),
     url(r'^submit/', views.submit, name="index"),
+    url(r'^saved/', views.saved, name="saved"),
 ]
