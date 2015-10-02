@@ -8,6 +8,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
+	var count = 0;
+
 	// Update the data as the all branches possible
 	var data = [
 	    { name: "Mal Reynolds" },
@@ -19,6 +21,10 @@
 
 	function addForm(divName)
 	{
+	  if(count >= 15){
+	  	//Print some message here
+	  	return;
+	  }
 	  var currDiv = document.getElementById(divName);
 	  var newDiv = document.createElement('div');
 	  //newDiv.className = 'input-field col l3';
@@ -41,7 +47,7 @@
 	  console.log(branchesFilled);
 	  var elm = document.createElement('select');
 	  elm.id = 'currb';
-
+	  //elm.setAttribute("change",Update());
 	  //elm.name = 'currb';
 	  //var elm = document.getElementById("captains"); // elm is a <select> element
  
@@ -56,11 +62,101 @@
 
 		      // add option
 		      elm.add(option);
-	  	}
+	  	  }	
 	  }
+	  
 	  newDiv.appendChild(elm);
 	  currDiv.appendChild(newDiv);
+	  count = count + 1;
 	};
+
+	function deleteForm(divName)
+	{
+		if(count <= 1){
+			//Print some messahe here
+			return;
+		}
+		else{
+			count = count - 1;
+			var div = document.getElementById(divName);
+			div.removeChild(div.lastChild);
+			//update();
+		}
+
+	};
+
+	function update()
+	{
+		var searchEles = jQuery("select[id='currb']");
+		var branchesFilled = [];	
+		
+		for (var i = 0; i < searchEles.length; i++)
+	  	{
+	  	 	var val = searchEles[i].value;
+	  	 	//if(branchesFilled.indexOf(val) == -1)
+	  	 	branchesFilled.push(val);
+	  	 	//else{
+	  	 		//Srajan Update kar
+	  	 	//}
+	  	 }
+	  	 
+	  	 for (var i = 0,length = branchesFilled.length; i < length; i++){
+	  	 	
+	  	 	searchEles[i].options.length = 0;
+	  	 	var elm = searchEles[i];
+	  	 	
+	  	 	for(var j = 0, len = data.length; j < len; i++){
+	  	 		
+	  	 		if(j == i || branchesFilled.indexOf(j) == -1){
+
+	  	 			var name = data[j].name;
+
+	  	 			// create an option element
+	  	 			var option = document.createElement("option");
+	  	 			option.value = j;
+	  	 			option.textContent = name;
+
+	  	 			// add option
+	  	 			elm.add(option);
+	  	 		}
+	  	 	}
+		}
+	}
+
+	/*$('#dynamicInput').change(function() {
+
+  		var searchEles = jQuery("select[id='currb']");
+  		var branchesFilled = [];	
+  		console.log(12);
+  		for (var i = 0; i < searchEles.length; i++)
+  	  	{
+  	  	 	var val = searchEles[i].value;
+  	  	 	//if(branchesFilled.indexOf(val) == -1)
+  	  	 	branchesFilled.push(val);
+  	  	 	//else{
+  	  	 		//Srajan Update kar
+  	  	 	//}
+  	  	 }
+  	  	 
+  	  	 for (var i = 0,length = branchesFilled.length; i < length; i++){
+  			searchEles[i].options.length = 0;
+  			//var elm = searchEles[i];
+  	  	 	for(var j = 0, len = data.length; j < len; i++){
+  	  	 		if(j == i || branchesFilled.indexOf(j) == -1){
+
+  	  	 			var name = data[i].name;
+
+  	  	 			// create an option element
+  	  	 			var option = document.createElement("option");
+  	  	 			option.value = j;
+  	  	 			option.textContent = name;
+
+  	  	 			// add option
+  	  	 			searchEles[i].add(option);
+  	  	 		}
+  	  	 	}
+  		}
+	});*/
 
 </script>
 <body>
@@ -69,6 +165,7 @@
     <div id="dynamicInput"></div>
     <!-- <input type="button" value="Add1" onclick="addInput('dynamicInput');" /> -->
     <input type="button" value="Add" onclick="addForm('dynamicInput');" />
+    <input type="button" value="Delete" onclick="deleteForm('dynamicInput');" />
 
 </form>
 
