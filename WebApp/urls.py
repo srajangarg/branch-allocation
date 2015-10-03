@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^saved/$', views.saved, name="saved"),
     url(r'^admin/$', views.admin, name="admin"),
     url(r'^upload/$', views.upload, name="upload"),
+    url(r'^resultcsv/$', views.resultcsv, name="resultcsv"),
+    url(r'^resultview/$', views.resultview, name="resultview"),
 ]
 
 handler404 = "views.error404"

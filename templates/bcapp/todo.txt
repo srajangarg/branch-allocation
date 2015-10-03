@@ -4,8 +4,7 @@
 - Submit button stuff /diable
 
 - Admin page
-== serve csv file
-== get csv file
+
 == maybe some logout button for admin?
 == genrate result
 

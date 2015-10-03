@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+import csv
 from miscfx import *
+from algo import *
 
 def index(request):
 
@@ -8,6 +10,7 @@ def index(request):
 		del request.session['user']
 	except:
 		pass
+
 	return render(request, "bcapp/login.html")
 
 def user(request):
@@ -83,3 +86,34 @@ def upload(request):
 		# len(request.POST) -6 is number of preferences
 		dealWith(request.FILES['file1'], request.FILES['file2'])
 		return render(request,"bcapp/uploaded.html")
+
+def resultcsv(request):
+
+	try:
+		print request.session['user']
+
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename="result.csv"'
+
+		myList = branchchange("static/data.csv", "static/main.csv")
+		writer = csv.writer(response)
+		writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
+
+		for curr in myList:
+			writer.writerow([curr[0], curr[1], curr[2], curr[3]])
+
+		return response
+
+	except:
+		return render(request, "bcapp/notadmin.html")
+
+def resultview(request):
+
+	try:
+		print request.session['user']
+
+		myList = branchchange("static/data.csv", "static/main.csv")
+		return render(request, "bcapp/result.html", {"finalList":myList})
+
+	except:
+		return render(request, "bcapp/notadmin.html")

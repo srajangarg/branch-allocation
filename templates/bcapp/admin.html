@@ -4,7 +4,7 @@
 
   <head>
 
-    <title>Branch Change!</title>
+    <title>Admin!</title>
     <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
 
   </head>
@@ -26,17 +26,17 @@
       <div class="container">
         <div class="row">
             <div class="col l6 center">
-              <a href="" class="thin" style="color:teal; font-size: 38px">View result of Branch Change!</a>
+              <a href="/resultview/" class="thin" style="color:teal; font-size: 38px">View result of Branch Change!</a>
             </div>
             <div class="col l6 center">
-              <a href="" class="thin" style="color:teal; font-size: 38px">Download the result as csv!</a>
+              <a href="/resultcsv/" class="thin" style="color:teal; font-size: 38px">Download the result as csv!</a>
             </div>
         </div>
         <br><br>
 
         <div class="row">
 
-            <div class="col l5 center">
+            <div class="col l6 center">
               <h3 class="thin" style="color:teal">Export the data files!</h3>
               <br><br>
                <div class="row">
@@ -50,20 +50,20 @@
             </div>
 
 
-            <div class="col l7 center">
+            <div class="col l6 center">
               <h3 class="thin" style="color:teal">Import the data files!</h3>
-              <br><br>
+              <br>
               <form enctype="multipart/form-data" action="/upload/" method="post">
               {% csrf_token %}
+              <div class="row center" style="color:teal; font-size: 20px"> Browse Files</div>
                <div class="row">
                 <div class="col l6 center">
                     <!-- <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a> -->
                     
                         <div class="file-field input-field">
-                          <div class="btn">
-                            <span>Choose</span>
+                          
                             <input id="file1" name="file1" type="file" accept=".csv">
-                          </div>
+                          
                           <div class="file-path-wrapper">
                             <input class="file-path validate" type="text" placeholder="main.csv">
                           </div>
@@ -74,10 +74,9 @@
                     <!-- <a href="data.csv" style="color:teal; font-size: 24px" target="_blank">data.csv</a> -->
 
                         <div class="file-field input-field">
-                          <div class="btn">
-                            <span>Choose</span>
+                          
                             <input id="file2" name="file2" type="file" accept=".csv">
-                          </div>
+                          
                           <div class="file-path-wrapper">
                             <input class="file-path validate" type="text" placeholder="data.csv">
                           </div>

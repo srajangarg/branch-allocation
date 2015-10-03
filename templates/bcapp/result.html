@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load staticfiles %}
+    <title>Result!</title>
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+  </head>
+
+  <body>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+
+        <h1 class="header center teal-text">Branch Change Result!</h1>
+            
+        <div class="row center">
+          <h5 class="header col s12 light">Go <a href="/admin" style="color:teal">back</a> to control panel or <a href="/bcapp" style="color:teal">logout</a>!</h5>
+        </div>
+        
+        <br><br>
+
+        <div class="row center">
+          
+            <table class= "center">
+                <thead>
+                  <tr>
+                      <th data-field="roll">Roll Number</th>
+                      <th data-field="name">Name</th>
+                      <th data-field="old">Original Branch</th>
+                      <th data-field="new">New Branch</th>
+                  </tr>
+                </thead>
+
+                    <tbody>
+
+                      {% for curr in finalList %}
+                       <tr>
+                         <td>{{curr.0}}</td>
+                         <td>{{curr.1}}</td>
+                         <td>{{curr.2}}</td>
+                         <td>{{curr.3}}</td>
+                       </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+
+            </table>
+            <br><br>
+        </div>
+        
+
+      </div>
+
+    </div>
+
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+
+  </body>
+</html>						
