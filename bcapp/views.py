@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from miscfx import *
 
 def index(request):
 
+	try:
+		del request.session['user']
+	except:
+		pass
 	return render(request, "bcapp/login.html")
 
 def user(request):
@@ -19,10 +23,19 @@ def user(request):
 
 	    return HttpResponse("Srajan says hey there world!")
 
+def admin(request):
+
+	try:
+		print request.session['user']
+		return render(request, "bcapp/admin.html")
+	except:
+		return render(request, "bcapp/notadmin.html")	
+
 def submit(request):
 
 	branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"]
 	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
+	ADMIN = "garg"
 
 	if request.method == 'GET':
 	    
@@ -36,11 +49,16 @@ def submit(request):
 	    #(auth,rollno) = doLogin(userLDAP, userPASS)
 	    rollno = userLDAP
 	    auth = True
+
 	    if auth:
 
-	    	oldPrefs = getContents(rollno)
-	    	print oldPrefs
-	    	return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
+	    	if userLDAP == ADMIN:
+
+	    		request.session['user'] = "admin"
+	    		return redirect("admin")
+	    	else:
+	    		oldPrefs = getContents(rollno)
+	    		return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
 	    else:
 	    	return render(request,"bcapp/loginfail.html")
 	

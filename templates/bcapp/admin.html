@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load staticfiles %}
+
+  <head>
+
+    <title>Branch Change!</title>
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+
+  </head>
+
+  <body>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+      <br>
+        <h2 class="header center teal-text">Admin Control Panel</h2>
+        
+        <div class="row center">
+          <h5 class="header col s12 light offset">View results or import/export data!</h5>
+          <div class="col offset-s10"><a class="modal-trigger" style="color:teal" href="#modal1">Info</a></div>
+        </div>
+
+      </div>
+      <br><br>
+      <br><br>
+      <div class="container">
+        <div class="row">
+            <div class="col l6 center">
+              <a href="" class="thin" style="color:teal; font-size: 38px">View result of Branch Change!</a>
+            </div>
+            <div class="col l6 center">
+              <a href="" class="thin" style="color:teal; font-size: 38px">Download the result as csv!</a>
+            </div>
+        </div>
+        <br><br>
+        <br><br>
+
+        <div class="row">
+            <div class="col l6 center">
+              <h3 class="thin" style="color:teal">Import the data files!</h3>
+               <div class="row">
+                <div class="col l4 center offset-l2">
+                    <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a>
+                </div>
+                <div class="col l4 center">
+                    <a href="" style="color:teal; font-size: 24px">data.csv</a>
+                </div>
+               </div>
+            </div>
+            <div class="col l6 center">
+              <h3 class="thin" style="color:teal">Export the data files!</h3>
+               <div class="row">
+                <div class="col l4 center offset-l2">
+                    <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a>
+                </div>
+                <div class="col l4 center">
+                    <a href="data.csv" style="color:teal; font-size: 24px" target="_blank">data.csv</a>
+                </div>
+               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4 style="color:teal">About</h4>
+        <p>Isko change karna hai.
+         </p>
+      </div>
+      <div class="modal-footer">
+        <p class="right-align" style="padding-right: 12px">Developed by <span style="color:teal">kuchbhi<span></p>
+      </div>
+    </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+
+
+    <script>
+
+    $(document).ready(function() {
+
+        $('.modal-trigger').leanModal();
+
+    });
+    </script>
+
+    
+
+  </body>
+</html>						
