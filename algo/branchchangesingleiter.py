@@ -2,23 +2,34 @@
 import csv, sys;
 
 class Branch:
+	# code = -1
+	# name = ""
+	# sancStrength = 0
+	# curStrength = 0
+	# maxStrength = 0
+	# minStrength = 0;
+	# MaxUnallowedCPI = 6.99
+	# MinAllowedCPI = 10.0
 	def __init__(self,information,deptcode):
 		self.code = deptcode
 		self.sancStrength = int(information[1])
 		self.name = information[0]
 		self.curStrength = int(information[2])
 		self.maxStrength = int(self.sancStrength + round(self.sancStrength/10,0))
-		# self.minStrength = self.sancStrength*0.75
-		self.maxRemove = self.curStrength - 0.75*self.sancStrength
+		self.minStrength = self.sancStrength*0.75
 		self.MaxUnallowedCPI = 6.99
 		self.MinAllowedCPI = 10.0
-		self.removed = 0
 		# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
-	def updateRemove(self):
-		self.maxRemove = self.curStrength - 0.75*self.sancStrength
-		self.removed = 0
 
 class Student:
+	# roll = ""
+	# name = ""
+	# cpi = 0.0	
+	# branch = 0
+	# category = ""
+	# tempbranch = 0
+	# preferences = []
+
 	def __init__(self, information):
 		self.roll = information[0]
 		self.name = information[1]
@@ -46,12 +57,11 @@ class Student:
 			#print(name,branches[index].curStrength)
 			if(branches[dept].curStrength < branches[dept].maxStrength):
 				
-				updatedRemoved = branches[self.tempbranch].removed + 1
+				updatedStrength = branches[self.tempbranch].curStrength -1
 
-				if(CPI >= 9.00 or (updatedRemoved <= branches[self.tempbranch].maxRemove and CPI > branches[dept].MaxUnallowedCPI)):
+				if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
 					branches[dept].curStrength = branches[dept].curStrength + 1
-					branches[self.tempbranch].curStrength = branches[self.tempbranch].curStrength - 1
-					branches[self.tempbranch].removed = updatedRemoved
+					branches[self.tempbranch].curStrength = updatedStrength
 					branches[dept].MinAllowedCPI = min(branches[dept].MinAllowedCPI,CPI)
 					self.tempbranch = dept
 					index = dept
@@ -113,42 +123,42 @@ students = list(reversed(sorted( students, key = lambda x: x.cpi)))
 toDelete = []
 tempStudents = students[:]
 changed = len(students)
-iterations =0
+# iterations =0
 
-while(len(tempStudents) !=0 and iterations!=1):
-	iterations=0
-	changed = len(tempStudents)
-	while (len(tempStudents) != 0 and changed != 0):
-		# Denotes the no of Students whose branch changed
-		changed = 0						
+# while(len(tempstudents) !=0 and iterations!=1):
+# 	iterations=0
+while (len(tempStudents) != 0 and changed != 0):
+	
+	# Denotes the no of Students whose branch changed
+	changed = 0						
 
-		for i,curStudent in enumerate(tempStudents):
-			curbranch = curStudent.tempbranch
-			branchAlloted = curStudent.allotBranch()
-			
-			if(branchAlloted == curStudent.preferences[0]):
+	for i,curStudent in enumerate(tempStudents):
+		curbranch = curStudent.tempbranch
+		branchAlloted = curStudent.allotBranch()
+		
+		if(branchAlloted == curStudent.preferences[0]):
+			changed = changed + 1
+			toDelete.append(i)
+		
+		elif(branchAlloted != -1 ):
+			if(curbranch != branchAlloted):
 				changed = changed + 1
-				toDelete.append(i)
-			
-			elif(branchAlloted != -1 ):
-				if(curbranch != branchAlloted):
-					changed = changed + 1
-				for key in curStudent.preferences:			
-					if(curStudent.branch != branchAlloted):
-						branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
-					else:
-						break
-			else:
-				for key in curStudent.preferences:
+			for key in curStudent.preferences:			
+				if(curStudent.branch != branchAlloted):
 					branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
+				else:
+					break
+		else:
+			for key in curStudent.preferences:
+				branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
 
-		toDelete = toDelete[::-1]
-		for i in toDelete:
-			 tempStudents.pop(i)
-		del toDelete[:]
-		iterations = iterations+1
-	for curbranch in branches:
-		curbranch.updateRemove()
+	toDelete = toDelete[::-1]
+	for i in toDelete:
+		 tempStudents.pop(i)
+	del toDelete[:]
+		# iterations = iterations+1
+
+	# updateBranchStrengths()
 
 with open("result.csv", 'w') as csvfile:
 	writer = csv.writer(csvfile)
