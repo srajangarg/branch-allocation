@@ -28,12 +28,12 @@ def editCSV(postData):
 	for i in range(len(postData) - 6):
 		userData.append(postData.get("pref"+str(i+1)))
 	
-	if not os.path.isfile("main.csv"):
-		f = open("main.csv","w")
+	if not os.path.isfile("static/main.csv"):
+		f = open("static/main.csv","w")
 		f.write("RollNo,Name,CurrentBranch,CPI,Category,Options\n")
 		f.close()
 
-	with open('main.csv', 'r') as inp, open('first_edit.csv', 'w') as out:
+	with open('static/main.csv', 'r') as inp, open('static/first_edit.csv', 'w') as out:
 	
 		writer = csv.writer(out)
 
@@ -46,14 +46,24 @@ def editCSV(postData):
 
 		writer.writerow(userData)
 
-	os.remove("main.csv")
-	os.rename("first_edit.csv", "main.csv")
+	os.remove("static/main.csv")
+	os.rename("static/first_edit.csv", "static/main.csv")
 
 def getContents(rollno):
 
-	with open('main.csv', 'r') as inp:
+	with open('static/main.csv', 'r') as inp:
 		for row in csv.reader(inp):
 			if row[0] == rollno:
 				return row
 
 	return ["","","","",""]
+
+def dealWith(f1, f2):
+
+	with open('static/main.csv', 'w') as destination:
+	    for chunk in f1.chunks():
+	        destination.write(chunk)
+
+	with open('static/data.csv', 'w') as destination:
+	    for chunk in f2.chunks():
+	        destination.write(chunk)

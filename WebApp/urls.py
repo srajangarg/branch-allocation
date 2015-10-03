@@ -18,9 +18,12 @@ from django.contrib import admin
 from bcapp import views
 
 urlpatterns = [
-    url(r'^bcapp/', views.index, name="index"),
-    url(r'^user/', views.user, name="user"),
-    url(r'^submit/', views.submit, name="index"),
-    url(r'^saved/', views.saved, name="saved"),
-    url(r'^admin/', views.admin, name="admin"),
+    url(r'^bcapp/$', views.index, name="index"),
+    url(r'^user/$', views.user, name="user"),
+    url(r'^submit/$', views.submit, name="index"),
+    url(r'^saved/$', views.saved, name="saved"),
+    url(r'^admin/$', views.admin, name="admin"),
+    url(r'^upload/$', views.upload, name="upload"),
 ]
+
+handler404 = "views.error404"

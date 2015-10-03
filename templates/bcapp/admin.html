@@ -13,7 +13,7 @@
 
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
-      <br>
+      
         <h2 class="header center teal-text">Admin Control Panel</h2>
         
         <div class="row center">
@@ -22,7 +22,6 @@
         </div>
 
       </div>
-      <br><br>
       <br><br>
       <div class="container">
         <div class="row">
@@ -34,30 +33,63 @@
             </div>
         </div>
         <br><br>
-        <br><br>
 
         <div class="row">
-            <div class="col l6 center">
-              <h3 class="thin" style="color:teal">Import the data files!</h3>
+
+            <div class="col l5 center">
+              <h3 class="thin" style="color:teal">Export the data files!</h3>
+              <br><br>
                <div class="row">
                 <div class="col l4 center offset-l2">
-                    <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a>
+                    <a href="{% static "main.csv" %}" style="color:teal; font-size: 24px" target="_blank">main.csv</a>
                 </div>
                 <div class="col l4 center">
-                    <a href="" style="color:teal; font-size: 24px">data.csv</a>
+                    <a href="{% static "data.csv" %}" style="color:teal; font-size: 24px" target="_blank">data.csv</a>
                 </div>
                </div>
             </div>
-            <div class="col l6 center">
-              <h3 class="thin" style="color:teal">Export the data files!</h3>
+
+
+            <div class="col l7 center">
+              <h3 class="thin" style="color:teal">Import the data files!</h3>
+              <br><br>
+              <form enctype="multipart/form-data" action="/upload/" method="post">
+              {% csrf_token %}
                <div class="row">
-                <div class="col l4 center offset-l2">
-                    <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a>
+                <div class="col l6 center">
+                    <!-- <a href="main.csv" style="color:teal; font-size: 24px" target="_blank">main.csv</a> -->
+                    
+                        <div class="file-field input-field">
+                          <div class="btn">
+                            <span>Choose</span>
+                            <input id="file1" name="file1" type="file" accept=".csv">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="main.csv">
+                          </div>
+                        </div>
+
                 </div>
-                <div class="col l4 center">
-                    <a href="data.csv" style="color:teal; font-size: 24px" target="_blank">data.csv</a>
+                <div class="col l6 center">
+                    <!-- <a href="data.csv" style="color:teal; font-size: 24px" target="_blank">data.csv</a> -->
+
+                        <div class="file-field input-field">
+                          <div class="btn">
+                            <span>Choose</span>
+                            <input id="file2" name="file2" type="file" accept=".csv">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="data.csv">
+                          </div>
+                        </div>
                 </div>
                </div>
+
+               <div class="row center" >
+                <button type="submit" id="submit-button" class="btn-large waves-effect waves-light teal lighten-1 ">Upload <i class="mdi-content-send right"></i></button>
+              </div>
+
+              </form>
             </div>
         </div>
       </div>

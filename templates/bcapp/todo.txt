@@ -10,3 +10,5 @@
 == genrate result
 
 =Algo implementation
+
+=Custom 404 page?

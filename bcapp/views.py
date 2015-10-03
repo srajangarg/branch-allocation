@@ -73,3 +73,13 @@ def saved(request):
 		# len(request.POST) -6 is number of preferences
 		editCSV(request.POST)
 		return render(request,"bcapp/saved.html")
+
+def upload(request):
+
+	if request.method == 'GET':
+		return render(request, "bcapp/lost.html")
+
+	if request.method == 'POST':
+		# len(request.POST) -6 is number of preferences
+		dealWith(request.FILES['file1'], request.FILES['file2'])
+		return render(request,"bcapp/uploaded.html")
