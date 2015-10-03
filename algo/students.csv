@@ -1,0 +1,14 @@
+RollNo,Name,CurrentBranch,CPI,Category,Options
+150XXXxxx,HCI,CS B.Tech,10.0,GE,EP B.Tech,EE B.Tech
+150XXXxxx,OSH,EE B.Tech,9.95,GE,CS B.Tech
+150XXXxxx,VAI,EE B.Tech,9.95,GE,CS B.Tech
+150XXXxxx,ASN,CE B.Tech,9.74,GE,CS B.Tech,EE B.Tech,EE Dual Deg E2,EE Dual Deg E1
+150XXXxxx,ASU,EE B.Tech,9.73,GE,CS B.Tech
+150XXXxxx,EDS,MM B.Tech,9.71,GE,CS B.Tech,EE B.Tech,EE Dual Deg E2,EE Dual Deg E1,ME B.Tech,ME Dual Deg M2,EP B.Tech,EP Dual Deg N1,CL B.Tech,CE B.Tech,AE B.Tech
+150XXXxxx,ANV,ME B.Tech,9.71,GE,CS B.Tech,EE B.Tech
+15DXXXxxx,ASL,EE Dual Deg E2,9.65,GE,EE B.Tech
+15DXXXxxx,ISD,EE Dual Deg E2,9.65,GE,CS B.Tech,EE B.Tech
+150XXXxxx,AGU,CL B.Tech,9.58,GE,CS B.Tech,EE B.Tech,EE Dual Deg E2
+150XXXxxx,ATN,ME B.Tech,9.57,GE,CS B.Tech
+15DXXXxxx,IRT,EE Dual Deg E1,9.57,GE,CS B.Tech,EE B.Tech,EE Dual Deg E2
+150XXXxxx,AKL,EE B.Tech,9.53,GE,CS B.Tech
