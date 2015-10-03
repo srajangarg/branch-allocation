@@ -24,11 +24,11 @@ class Branch:
 class Student:
 	# roll = ""
 	# name = ""
-	# cpi = 0.0
+	# cpi = 0.0	
 	# branch = 0
 	# category = ""
 	# tempbranch = 0
-	#preferences = []
+	# preferences = []
 
 	def __init__(self, information):
 		self.roll = information[0]
@@ -123,7 +123,10 @@ students = list(reversed(sorted( students, key = lambda x: x.cpi)))
 toDelete = []
 tempStudents = students[:]
 changed = len(students)
+# iterations =0
 
+# while(len(tempstudents) !=0 and iterations!=1):
+# 	iterations=0
 while (len(tempStudents) != 0 and changed != 0):
 	
 	# Denotes the no of Students whose branch changed
@@ -153,8 +156,17 @@ while (len(tempStudents) != 0 and changed != 0):
 	for i in toDelete:
 		 tempStudents.pop(i)
 	del toDelete[:]
+		# iterations = iterations+1
+
+	# updateBranchStrengths()
+
+with open("result.csv", 'w') as csvfile:
+	writer = csv.writer(csvfile)
+	writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
+	for curStudent in students:
+		if(curStudent.tempbranch != curStudent.branch):
+			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,branches[curStudent.tempbranch].name])
 
 
-
-for curStudent in students:
-	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")
+# for curStudent in students:
+# 	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")
