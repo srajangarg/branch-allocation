@@ -61,6 +61,7 @@ def submit(request):
 	    		return redirect("admin")
 	    	else:
 	    		oldPrefs = getContents(rollno)
+	    		branches = getbranches()
 	    		return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
 	    else:
 	    	return render(request,"bcapp/loginfail.html")

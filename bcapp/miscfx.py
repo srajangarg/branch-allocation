@@ -1,4 +1,4 @@
-import ldap, os, csv
+import os, csv
 
 def doLogin(userName, passWord):
 
@@ -57,6 +57,15 @@ def getContents(rollno):
 				return row
 
 	return ["","","","",""]
+
+def getbranches():
+	branches = []
+	with open('static/data.csv', 'r') as inp:
+		for row in csv.reader(inp):
+			if row[0] != "BranchName":
+				branches.append(row[0])
+	return branches
+
 
 def dealWith(f1, f2):
 

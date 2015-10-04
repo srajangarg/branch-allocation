@@ -158,8 +158,8 @@
 
    var numSelects = {{oldPrefs|length|add:"-5"}};
    var divid, div, option, e;
-   var branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"];
-
+   // var branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"];
+   var branches = {{branches|safe}};
     $('#add').click(function () { 
      
     if(numSelects >= 8)
