@@ -36,7 +36,6 @@ def admin(request):
 
 def submit(request):
 
-	branches = ["Branch 1","Branch 2","Branch 3","Branch 4","Branch 5"]
 	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
 	ADMIN = "garg"
 
@@ -65,8 +64,7 @@ def submit(request):
 	    		return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
 	    else:
 	    	return render(request,"bcapp/loginfail.html")
-	
-	return render(request,"bcapp/index.html", {"userLDAP": "garg", "rollno": "140050017"})
+
 
 def saved(request):
 
