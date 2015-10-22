@@ -52,7 +52,7 @@
                   <select id="currb" name ="currb">
                     
                     {% for opt in branches %}
-                     <option value="{{opt}}" {% if opt == oldPrefs.2 %}selected {% endif %}>{{opt}}</option>
+                      <option value="{{opt}}" {% if opt == oldPrefs.2 %}selected {% endif %}>{{opt}}</option>
                     {% endfor %}
 
                   </select>
@@ -93,7 +93,7 @@
 
        <div class="row">
 
-          <div id="prefss" class="col l6 offset-l3">
+          <div id="prefss" class="col l8 offset-l2">
              
               {% for i in range%}
                   {% load list_index %}
@@ -107,7 +107,6 @@
                         </select>
                         <label>Preference {{i|add:'1'}}</label>
                     </div>
-                  
               {% endfor %}
 
           </div>
