@@ -48,10 +48,19 @@ def submit(request):
 	    userLDAP = request.POST.get("ldapid")
 	    userPASS = request.POST.get("ldappass")
 
+	    if userLDAP == "" or userPASS == "":
+	    	return render(request,"bcapp/login.html", {"error":"Both fields must be filled!"})
+
+
+	    ############# UNCOMMENT BELOW LINE FOR LDAP #############
 	    #(auth,rollno) = doLogin(userLDAP, userPASS)
+	    #########################################################
+
+	    ############# UNCOMMENT FOR ANY NO AUTHENTICATION ##############
 	    rollno = userLDAP
 	    auth = True
-
+	    ################################################################
+	    
 	    if auth:
 
 	    	if userLDAP == ADMIN:
