@@ -52,15 +52,17 @@ def submit(request):
 	    	return render(request,"bcapp/login.html", {"error":"Both fields must be filled!"})
 
 
-	    ############# UNCOMMENT BELOW LINE FOR LDAP #############
+	    ############# UNCOMMENT BELOW  FOR LDAP AUTHENTICATION #############
 	    #(auth,rollno) = doLogin(userLDAP, userPASS)
-	    #########################################################
+	    ####################################################################
 
-	    ############# UNCOMMENT FOR ANY NO AUTHENTICATION ##############
+	    							### OR ###
+
+	    ############### UNCOMMENT FOR ANY NO AUTHENTICATION ################
 	    rollno = userLDAP
 	    auth = True
-	    ################################################################
-	    
+	    ####################################################################
+
 	    if auth:
 
 	    	if userLDAP == ADMIN:
