@@ -38,7 +38,9 @@ class Student:
 		self.category = information[4]
 		self.preferences = []
 		for branchpref in information[5:]:
-			self.preferences.append(branchmap[branchpref])
+			# Empty Strings will return false
+			if branchpref:
+				self.preferences.append(branchmap[branchpref])
 		self.tempbranch = self.branch
 		# self.preferences = information[5:]
 	
@@ -75,8 +77,8 @@ class Student:
 				index = dept
 				break
 
-		if(index != -1):
-			self.preferences = self.preferences[0:index]
+		# if(index != -1):
+		# 	self.preferences = self.preferences[0:index]
 		return index
 
 
@@ -159,14 +161,16 @@ while (len(tempStudents) != 0 and changed != 0):
 		# iterations = iterations+1
 
 	# updateBranchStrengths()
-
+sbc = "Branch Unchanged"
+students = list(sorted( students, key = lambda x: (x.roll,x.name)))
 with open("result.csv", 'w') as csvfile:
 	writer = csv.writer(csvfile)
-	writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
+	#writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
 	for curStudent in students:
 		if(curStudent.tempbranch != curStudent.branch):
 			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,branches[curStudent.tempbranch].name])
-
+		else:
+			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,sbc])
 
 # for curStudent in students:
 # 	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")
