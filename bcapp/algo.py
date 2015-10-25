@@ -42,7 +42,16 @@ def branchchange(branchfile, studentfile):
 				if(dept == self.tempbranch):
 					break
 				#print(name,branches[index].curStrength)
-				if(branches[dept].curStrength < branches[dept].maxStrength):
+					
+				if(CPI == branches[dept].MinAllowedCPI):
+					updatedStrength = branches[self.tempbranch].curStrength -1
+					branches[dept].curStrength = branches[dept].curStrength + 1
+					branches[self.tempbranch].curStrength = updatedStrength
+					self.tempbranch = dept
+					index = dept
+					break
+
+				elif(branches[dept].curStrength < branches[dept].maxStrength):
 					
 					updatedStrength = branches[self.tempbranch].curStrength -1
 
@@ -50,16 +59,6 @@ def branchchange(branchfile, studentfile):
 						branches[dept].curStrength = branches[dept].curStrength + 1
 						branches[self.tempbranch].curStrength = updatedStrength
 						branches[dept].MinAllowedCPI = min(branches[dept].MinAllowedCPI,CPI)
-						self.tempbranch = dept
-						index = dept
-						break
-				
-				elif(CPI == branches[dept].MinAllowedCPI):
-					updatedStrength = branches[self.tempbranch].curStrength -1
-
-					if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
-						branches[dept].curStrength = branches[dept].curStrength + 1
-						branches[self.tempbranch].curStrength = updatedStrength
 						self.tempbranch = dept
 						index = dept
 						break
