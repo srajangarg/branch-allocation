@@ -95,6 +95,7 @@ branches = []
 students = []
 numbranches = 0
 branchmap = {}
+ineligibleStudents = []
 
 with open(sys.argv[1],'r') as csvfile:
 	branchreader = csv.reader(csvfile)
@@ -119,6 +120,8 @@ with open(sys.argv[2],'r') as csvfile:
 			newstudent = Student(row)
 			if(newstudent.isEligible()):
 				students.append(newstudent)
+			else:
+				ineligibleStudents.append(newstudent)
 
 students = list(reversed(sorted( students, key = lambda x: x.cpi)))
 
@@ -164,17 +167,20 @@ while (len(tempStudents) != 0 and changed != 0):
 		# iterations = iterations+1
 
 	# updateBranchStrengths()
-
+students.extend(ineligibleStudents)
+students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
 with open(sys.argv[3], 'w') as csvfile:
 	writer = csv.writer(csvfile)
-	writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
+	#writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
 	for curStudent in students:
 		if(curStudent.tempbranch != curStudent.branch):
 			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,branches[curStudent.tempbranch].name])
-		else:
+		elif curStudent.isEligible():
 			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Branch Unchanged"])
+		else:
+			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Ineligible"])
 # for branch in branches:
-# 	print(branch.name, branch.sancStrength, branch.curStrength,sep=" , ")
+#  	print(branch.name, branch.sancStrength, branch.curStrength,sep=" , ")
 
 # for curStudent in students:
 # 	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")

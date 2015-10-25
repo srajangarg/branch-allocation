@@ -9,29 +9,24 @@ def branchchange(branchfile, studentfile):
 			self.name = information[0]
 			self.curStrength = int(information[2])
 			self.maxStrength = int(self.sancStrength + round(self.sancStrength/10,0))
-			# self.minStrength = self.sancStrength*0.75
-			self.maxRemove = self.curStrength - 0.75*self.sancStrength
+			self.minStrength = self.sancStrength*0.75
 			self.MaxUnallowedCPI = 6.99
 			self.MinAllowedCPI = 10.0
-			self.removed = 0
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
-		def updateRemove(self):
-			self.maxRemove = self.curStrength - 0.75*self.sancStrength
-			self.removed = 0
-
 	class Student:
 		def __init__(self, information):
-			self.roll = information[0]
-			self.name = information[1]
-			self.branch = branchmap[information[2]]
-			self.cpi = float(information[3])
-			self.category = information[4]
-			self.preferences = []
-			for branchpref in information[5:]:
+		self.roll = information[0]
+		self.name = information[1]
+		self.branch = branchmap[information[2]]
+		self.cpi = float(information[3])
+		self.category = information[4]
+		self.preferences = []
+		for branchpref in information[5:]:
+			if branchpref:
 				self.preferences.append(branchmap[branchpref])
-			self.tempbranch = self.branch
-			# self.preferences = information[5:]
-		
+		self.tempbranch = self.branch
+		# self.preferences = information[5:]
+	
 		# Validate whether a student is eligible for branch change or not according
 		# to the CPI criterion
 		def isEligible(self):
@@ -44,30 +39,33 @@ def branchchange(branchfile, studentfile):
 			index = -1
 			for dept in self.preferences:
 				CPI = self.cpi
+				if(dept == self.tempbranch):
+					break
 				#print(name,branches[index].curStrength)
 				if(branches[dept].curStrength < branches[dept].maxStrength):
 					
-					updatedRemoved = branches[self.tempbranch].removed + 1
+					updatedStrength = branches[self.tempbranch].curStrength -1
 
-					if(CPI >= 9.00 or (updatedRemoved <= branches[self.tempbranch].maxRemove and CPI > branches[dept].MaxUnallowedCPI)):
+					if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
 						branches[dept].curStrength = branches[dept].curStrength + 1
-						branches[self.tempbranch].curStrength = branches[self.tempbranch].curStrength - 1
-						branches[self.tempbranch].removed = updatedRemoved
+						branches[self.tempbranch].curStrength = updatedStrength
 						branches[dept].MinAllowedCPI = min(branches[dept].MinAllowedCPI,CPI)
 						self.tempbranch = dept
 						index = dept
 						break
 				
 				elif(CPI == branches[dept].MinAllowedCPI):
-					
-					branches[dept].curStrength = branches[dept].curStrength + 1
-					branches[self.tempbranch].curStrength = branches[self.tempbranch].curStrength - 1
-					self.tempbranch = dept
-					index = dept
-					break
+					updatedStrength = branches[self.tempbranch].curStrength -1
 
-			if(index != -1):
-				self.preferences = self.preferences[0:index]
+					if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
+						branches[dept].curStrength = branches[dept].curStrength + 1
+						branches[self.tempbranch].curStrength = updatedStrength
+						self.tempbranch = dept
+						index = dept
+						break
+
+			# if(index != -1):
+			# 	self.preferences = self.preferences[0:index]
 			return index
 
 
@@ -81,8 +79,10 @@ def branchchange(branchfile, studentfile):
 	students = []
 	numbranches = 0
 	branchmap = {}
+	ineligibleStudents = []
+	finalList = []
 
-	with open(branchfile,'r') as csvfile:
+	with open(sys.argv[1],'r') as csvfile:
 		branchreader = csv.reader(csvfile)
 		for row in branchreader:
 			if(row[0] == "BranchName"):
@@ -96,7 +96,7 @@ def branchchange(branchfile, studentfile):
 	# for curbranch in branches:
 	#  	print(curbranch.name,curbranch.code,curbranch.sancStrength,curbranch.curStrength,sep = " ")
 
-	with open(studentfile,'r') as csvfile:
+	with open(sys.argv[2],'r') as csvfile:
 		studentreader = csv.reader(csvfile)
 		for row in studentreader:
 			if(row[0] == "RollNo"):
@@ -105,6 +105,8 @@ def branchchange(branchfile, studentfile):
 				newstudent = Student(row)
 				if(newstudent.isEligible()):
 					students.append(newstudent)
+				else:
+					ineligibleStudents.append(newstudent)
 
 	students = list(reversed(sorted( students, key = lambda x: x.cpi)))
 
@@ -114,47 +116,47 @@ def branchchange(branchfile, studentfile):
 	toDelete = []
 	tempStudents = students[:]
 	changed = len(students)
-	iterations =0
+	# iterations =0
 
-	while(len(tempStudents) !=0 and iterations!=1):
-		iterations=0
-		changed = len(tempStudents)
-		while (len(tempStudents) != 0 and changed != 0):
-			# Denotes the no of Students whose branch changed
-			changed = 0						
+	# while(len(tempstudents) !=0 and iterations!=1):
+	# 	iterations=0
+	while (len(tempStudents) != 0 and changed != 0):
+		
+		# Denotes the no of Students whose branch changed
+		changed = 0						
 
-			for i,curStudent in enumerate(tempStudents):
-				curbranch = curStudent.tempbranch
-				branchAlloted = curStudent.allotBranch()
-				
-				if(branchAlloted == curStudent.preferences[0]):
+		for i,curStudent in enumerate(tempStudents):
+			curbranch = curStudent.tempbranch
+			branchAlloted = curStudent.allotBranch()
+			
+			if(branchAlloted == curStudent.preferences[0]):
+				changed = changed + 1
+				toDelete.append(i)
+			
+			elif(branchAlloted != -1 ):
+				if(curbranch != branchAlloted):
 					changed = changed + 1
-					toDelete.append(i)
-				
-				elif(branchAlloted != -1 ):
-					if(curbranch != branchAlloted):
-						changed = changed + 1
-					for key in curStudent.preferences:			
-						if(curStudent.branch != branchAlloted):
-							branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
-						else:
-							break
-				else:
-					for key in curStudent.preferences:
-						branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
+				for key in curStudent.preferences:			
+					if(key != branchAlloted):
+						branches[key].MaxUnallowedCPI = max(curStudent.cpi,branches[key].MaxUnallowedCPI)
+					else:
+						break
+			else:
+				for key in curStudent.preferences:
+					branches[key].MaxUnallowedCPI = max(curStudent.cpi,branches[key].MaxUnallowedCPI)
 
-			toDelete = toDelete[::-1]
-			for i in toDelete:
-				 tempStudents.pop(i)
-			del toDelete[:]
-			iterations = iterations+1
-		for curbranch in branches:
-			curbranch.updateRemove()
+		toDelete = toDelete[::-1]
+		for i in toDelete:
+			 tempStudents.pop(i)
+		del toDelete[:]
 
-	finalList = []
-
+	students.extend(ineligibleStudents)
+	students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
 	for curStudent in students:
 		if(curStudent.tempbranch != curStudent.branch):
 			finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name, branches[curStudent.tempbranch].name])
-
+		elif curStudent.isEligible():
+			finalList.append([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Branch Unchanged"])
+		else:
+			finalList.append([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Ineligible"])
 	return finalList
