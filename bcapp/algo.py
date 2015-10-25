@@ -15,17 +15,17 @@ def branchchange(branchfile, studentfile):
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
 	class Student:
 		def __init__(self, information):
-		self.roll = information[0]
-		self.name = information[1]
-		self.branch = branchmap[information[2]]
-		self.cpi = float(information[3])
-		self.category = information[4]
-		self.preferences = []
-		for branchpref in information[5:]:
-			if branchpref:
-				self.preferences.append(branchmap[branchpref])
-		self.tempbranch = self.branch
-		# self.preferences = information[5:]
+			self.roll = information[0]
+			self.name = information[1]
+			self.branch = branchmap[information[2]]
+			self.cpi = float(information[3])
+			self.category = information[4]
+			self.preferences = []
+			for branchpref in information[5:]:
+				if branchpref:
+					self.preferences.append(branchmap[branchpref])
+			self.tempbranch = self.branch
+			# self.preferences = information[5:]
 	
 		# Validate whether a student is eligible for branch change or not according
 		# to the CPI criterion
