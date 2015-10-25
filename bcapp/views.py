@@ -13,19 +13,6 @@ def index(request):
 
 	return render(request, "bcapp/login.html")
 
-def user(request):
-	
-	if request.method == 'GET':
-	    
-	    return render(request, "bcapp/lost.html")
-
-	if request.method == 'POST':
-	    
-	    userLDAP = request.POST.get("ldapid")
-	    userPASS = request.POST.get("ldappass")
-
-	    return HttpResponse("Srajan says hey there world!")
-
 def admin(request):
 
 	try:
@@ -58,7 +45,7 @@ def submit(request):
 
 	    							### OR ###
 
-	    ############### UNCOMMENT FOR ANY NO AUTHENTICATION ################
+	    ############### UNCOMMENT FOR NO AUTHENTICATION ################
 	    rollno = userLDAP
 	    auth = True
 	    ####################################################################
