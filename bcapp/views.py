@@ -94,7 +94,6 @@ def resultcsv(request):
 
 		myList = branchchange("static/data.csv", "static/main.csv")
 		writer = csv.writer(response)
-		writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
 
 		for curr in myList:
 			writer.writerow([curr[0], curr[1], curr[2], curr[3]])

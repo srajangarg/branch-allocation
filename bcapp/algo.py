@@ -82,7 +82,7 @@ def branchchange(branchfile, studentfile):
 	ineligibleStudents = []
 	finalList = []
 
-	with open(sys.argv[1],'r') as csvfile:
+	with open(branchfile,'r') as csvfile:
 		branchreader = csv.reader(csvfile)
 		for row in branchreader:
 			if(row[0] == "BranchName"):
@@ -96,7 +96,7 @@ def branchchange(branchfile, studentfile):
 	# for curbranch in branches:
 	#  	print(curbranch.name,curbranch.code,curbranch.sancStrength,curbranch.curStrength,sep = " ")
 
-	with open(sys.argv[2],'r') as csvfile:
+	with open(studentfile,'r') as csvfile:
 		studentreader = csv.reader(csvfile)
 		for row in studentreader:
 			if(row[0] == "RollNo"):
