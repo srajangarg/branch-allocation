@@ -38,7 +38,6 @@ class Student:
 		self.category = information[4]
 		self.preferences = []
 		for branchpref in information[5:]:
-			# Empty Strings will return false
 			if branchpref:
 				self.preferences.append(branchmap[branchpref])
 		self.tempbranch = self.branch
@@ -56,6 +55,8 @@ class Student:
 		index = -1
 		for dept in self.preferences:
 			CPI = self.cpi
+			if(dept == self.tempbranch):
+				break
 			#print(name,branches[index].curStrength)
 			if(branches[dept].curStrength < branches[dept].maxStrength):
 				
@@ -70,12 +71,14 @@ class Student:
 					break
 			
 			elif(CPI == branches[dept].MinAllowedCPI):
-				
-				branches[dept].curStrength = branches[dept].curStrength + 1
-				branches[self.tempbranch].curStrength = updatedStrength
-				self.tempbranch = dept
-				index = dept
-				break
+				updatedStrength = branches[self.tempbranch].curStrength -1
+
+				if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
+					branches[dept].curStrength = branches[dept].curStrength + 1
+					branches[self.tempbranch].curStrength = updatedStrength
+					self.tempbranch = dept
+					index = dept
+					break
 
 		# if(index != -1):
 		# 	self.preferences = self.preferences[0:index]
@@ -92,7 +95,6 @@ branches = []
 students = []
 numbranches = 0
 branchmap = {}
-ineligibleStudents = []
 
 with open(sys.argv[1],'r') as csvfile:
 	branchreader = csv.reader(csvfile)
@@ -117,9 +119,6 @@ with open(sys.argv[2],'r') as csvfile:
 			newstudent = Student(row)
 			if(newstudent.isEligible()):
 				students.append(newstudent)
-			else:
-				ineligibleStudents.append(newstudent)
-
 
 students = list(reversed(sorted( students, key = lambda x: x.cpi)))
 
@@ -150,13 +149,13 @@ while (len(tempStudents) != 0 and changed != 0):
 			if(curbranch != branchAlloted):
 				changed = changed + 1
 			for key in curStudent.preferences:			
-				if(curStudent.branch != branchAlloted):
-					branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
+				if(key != branchAlloted):
+					branches[key].MaxUnallowedCPI = max(curStudent.cpi,branches[key].MaxUnallowedCPI)
 				else:
 					break
 		else:
 			for key in curStudent.preferences:
-				branches[curStudent.branch].MaxUnallowedCPI = max(curStudent.cpi,branches[curStudent.branch].MaxUnallowedCPI)
+				branches[key].MaxUnallowedCPI = max(curStudent.cpi,branches[key].MaxUnallowedCPI)
 
 	toDelete = toDelete[::-1]
 	for i in toDelete:
@@ -166,18 +165,16 @@ while (len(tempStudents) != 0 and changed != 0):
 
 	# updateBranchStrengths()
 
-students.extend(ineligibleStudents)
-students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
-with open("result.csv", 'w') as csvfile:
+with open(sys.argv[3], 'w') as csvfile:
 	writer = csv.writer(csvfile)
-	#writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
+	writer.writerow(['RollNumber','Name','Current Branch', 'Destination Branch'])
 	for curStudent in students:
 		if(curStudent.tempbranch != curStudent.branch):
 			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,branches[curStudent.tempbranch].name])
-		elif curStudent.isEligible():
-			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Branch Unchanged"])
 		else:
-			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Ineligible"])
+			writer.writerow([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Branch Unchanged"])
+# for branch in branches:
+# 	print(branch.name, branch.sancStrength, branch.curStrength,sep=" , ")
 
 # for curStudent in students:
-# 	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")t
+# 	print(curStudent.roll,curStudent.name,branches[curStudent.branch].name,changedBranch(curStudent),sep = " ")
