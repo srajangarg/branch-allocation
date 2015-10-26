@@ -12,7 +12,11 @@ def branchchange(branchfile, studentfile):
 			self.minStrength = self.sancStrength*0.75
 			self.MaxUnallowedCPI = 6.99
 			self.MinAllowedCPI = 10.0
+			self.MinTransferrdCPI = 10.0
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
+		def resetdata(self):
+			self.MaxUnallowedCPI = 6.99
+
 	class Student:
 		def __init__(self, information):
 			self.roll = information[0]
@@ -36,36 +40,37 @@ def branchchange(branchfile, studentfile):
 				return (self.cpi >= 7.00)
 
 		def allotBranch(self):
-			index = -1
+			status = -1
 			for dept in self.preferences:
 				CPI = self.cpi
 				if(dept == self.tempbranch):
 					break
-				#print(name,branches[index].curStrength)
+				#print(name,branches[status].curStrength)
 					
 				if(CPI == branches[dept].MinAllowedCPI):
-					updatedStrength = branches[self.tempbranch].curStrength -1
 					branches[dept].curStrength = branches[dept].curStrength + 1
-					branches[self.tempbranch].curStrength = updatedStrength
+					branches[self.tempbranch].curStrength = branches[self.tempbranch].curStrength -1
+					branches[self.tempbranch].MinTransferrdCPI = CPI
 					self.tempbranch = dept
-					index = dept
+					status = dept
 					break
 
 				elif(branches[dept].curStrength < branches[dept].maxStrength):
 					
 					updatedStrength = branches[self.tempbranch].curStrength -1
 
-					if(CPI >= 9.00 or (updatedStrength >= branches[self.tempbranch].minStrength and CPI > branches[dept].MaxUnallowedCPI)):
+					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferrdCPI) and CPI > branches[dept].MaxUnallowedCPI)):
 						branches[dept].curStrength = branches[dept].curStrength + 1
 						branches[self.tempbranch].curStrength = updatedStrength
+						branches[self.tempbranch].MinTransferrdCPI = CPI
 						branches[dept].MinAllowedCPI = min(branches[dept].MinAllowedCPI,CPI)
 						self.tempbranch = dept
-						index = dept
+						status = dept
 						break
 
-			# if(index != -1):
-			# 	self.preferences = self.preferences[0:index]
-			return index
+			if(status !=-1):
+				self.preferences = self.preferences[0:self.preferences.index(status)]
+			return status
 
 
 	def changedBranch(candidate):
@@ -128,7 +133,7 @@ def branchchange(branchfile, studentfile):
 			curbranch = curStudent.tempbranch
 			branchAlloted = curStudent.allotBranch()
 			
-			if(branchAlloted == curStudent.preferences[0]):
+			if(not curStudent.preferences):
 				changed = changed + 1
 				toDelete.append(i)
 			
@@ -148,6 +153,8 @@ def branchchange(branchfile, studentfile):
 		for i in toDelete:
 			 tempStudents.pop(i)
 		del toDelete[:]
+		for branch in branches:
+			branch.resetdata()
 
 	students.extend(ineligibleStudents)
 	students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))

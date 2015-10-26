@@ -92,7 +92,7 @@ def resultcsv(request):
 		response = HttpResponse(content_type='text/csv')
 		response['Content-Disposition'] = 'attachment; filename="result.csv"'
 
-		myList = branchchange("static/data.csv", "static/main.csv")
+		myList = branchchange("static/input_programmes.csv", "static/input_options.csv")
 		writer = csv.writer(response)
 
 		for curr in myList:
@@ -108,7 +108,7 @@ def resultview(request):
 	try:
 		print request.session['user']
 
-		myList = branchchange("static/data.csv", "static/main.csv")
+		myList = branchchange("static/input_programmes.csv", "static/input_options.csv")
 		return render(request, "bcapp/result.html", {"finalList":myList})
 
 	except:
