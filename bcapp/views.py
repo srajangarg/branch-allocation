@@ -24,7 +24,6 @@ def admin(request):
 def submit(request):
 
 	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
-	ADMIN = "garg"
 
 	if request.method == 'GET':
 	    
@@ -37,6 +36,11 @@ def submit(request):
 
 	    if userLDAP == "" or userPASS == "":
 	    	return render(request,"bcapp/login.html", {"error":"Both fields must be filled!"})
+
+
+	    ################### SET ADMIN USERNAME BELOW #######################
+	    ADMIN = "garg"
+	    ####################################################################
 
 
 	    ############# UNCOMMENT BELOW  FOR LDAP AUTHENTICATION #############

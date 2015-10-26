@@ -14,7 +14,7 @@
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
       
-        <h2 class="header center teal-text">Admin Control Panel</h2>
+        <h3 class="header center teal-text">Admin Control Panel</h3>
         
         <div class="row center">
           <h5 class="header col s12 light offset">View results or import/export data!</h5>
@@ -27,10 +27,10 @@
       <div class="container">
         <div class="row">
             <div class="col l6 center">
-              <a href="/resultview/" class="thin" style="color:teal; font-size: 38px">View result of Branch Change!</a>
+              <a href="/resultview/" class="thin" style="color:teal; font-size: 30px">View result of Branch Change!</a>
             </div>
             <div class="col l6 center">
-              <a href="/resultcsv/" class="thin" style="color:teal; font-size: 38px">Download the result as csv!</a>
+              <a href="/resultcsv/" class="thin" style="color:teal; font-size: 30px">Download the result as csv!</a>
             </div>
         </div>
         <br><br>
@@ -38,28 +38,28 @@
         <div class="row">
 
             <div class="col l6 center">
-              <h3 class="thin" style="color:teal">Export the data files!</h3>
+              <h4 class="thin" style="color:teal">Export the data files!</h4>
               <br><br>
                <div class="row">
                 <div class="col l6 m6 center">
-                    <a href="{% static "input_options.csv" %}" style="color:teal; font-size: 24px" target="_blank">input_options.csv</a>
+                    <a href="{% static "input_options.csv" %}" style="color:teal; font-size: 18px" target="_blank">input_options.csv</a>
                 </div>
                 <div class="col l6 m6 center">
-                    <a href="{% static "input_programmes.csv" %}" style="color:teal; font-size: 24px" target="_blank">input_programmes.csv</a>
+                    <a href="{% static "input_programmes.csv" %}" style="color:teal; font-size: 18px" target="_blank">input_programmes.csv</a>
                 </div>
                </div>
             </div>
 
 
             <div class="col l6 center">
-              <h3 class="thin" style="color:teal">Import the data files!</h3>
+              <h4 class="thin" style="color:teal">Import the data files!</h4>
               <br>
               <form enctype="multipart/form-data" action="/upload/" method="post">
               {% csrf_token %}
-              <div class="row center" style="color:teal; font-size: 14px"> Browse Files</div>
+              <div class="row center" style="color:teal; font-size: 12px"> Browse Files</div>
                <div class="row">
                 <div class="col l6 center">
-                    <!-- <a href="input_options.csv" style="color:teal; font-size: 24px" target="_blank">input_options.csv</a> -->
+                    <!-- <a href="input_options.csv" style="color:teal; font-size: 18px" target="_blank">input_options.csv</a> -->
                     
                         <div class="file-field input-field">
                           
@@ -72,7 +72,7 @@
 
                 </div>
                 <div class="col l6 center">
-                    <!-- <a href="input_programmes.csv" style="color:teal; font-size: 24px" target="_blank">input_programmes.csv</a> -->
+                    <!-- <a href="input_programmes.csv" style="color:teal; font-size: 18px" target="_blank">input_programmes.csv</a> -->
 
                         <div class="file-field input-field">
                           
