@@ -4,6 +4,8 @@ import csv
 from miscfx import *
 from algo import *
 
+categories = ["GEN", "OBC", "SC", "ST", "PwD"]
+
 def index(request):
 
 	try:
@@ -22,8 +24,6 @@ def admin(request):
 		return render(request, "bcapp/notadmin.html")	
 
 def submit(request):
-
-	categories = ["GEN", "OBC", "SC", "ST", "PwD"]
 
 	if request.method == 'GET':
 	    
@@ -70,13 +70,29 @@ def submit(request):
 
 def saved(request):
 
+	
+
 	if request.method == 'GET':
 		return render(request, "bcapp/lost.html")
 
 	if request.method == 'POST':
-		# len(request.POST) -6 is number of preferences
-		editCSV(request.POST)
-		return render(request,"bcapp/saved.html")
+		postData = request.POST
+		error = isCorrect(postData)
+
+		if error == "none":
+			editCSV(postData)
+			return render(request,"bcapp/saved.html")
+		else:
+			rollno = postData.get("rollno")
+			userLDAP =  postData.get("userldap")
+			oldPrefs = [rollno, postData.get("uname"), postData.get("currb"), postData.get("cpi"), postData.get("category")]
+			
+			for i in range(len(postData) - 7):
+				oldPrefs.append(postData.get("pref"+str(i+1)))
+			branches = getbranches()
+			
+			return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:], "error":error})
+
 
 def upload(request):
 
@@ -84,7 +100,6 @@ def upload(request):
 		return render(request, "bcapp/lost.html")
 
 	if request.method == 'POST':
-		# len(request.POST) -6 is number of preferences
 		dealWith(request.FILES['file1'], request.FILES['file2'])
 		return render(request,"bcapp/uploaded.html")
 

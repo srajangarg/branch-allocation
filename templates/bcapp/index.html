@@ -15,7 +15,7 @@
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
 
-        <h2 class="header center teal-text">Hi {{userLDAP}}!</h2>
+        <h3 class="header center teal-text">Hi {{userLDAP}}!</h3>
         
         <div class="row center">
           <h5 class="header col s12 light offset">Edit and save your settings here!</h5>
@@ -39,7 +39,7 @@
                 <input id="rollno1" name="rollno1" value="{{rollno}}" type="text" class="validate" disabled>
                 <label for="rollno1">Roll No</label>
                 <input hidden id="rollno" name="rollno" value="{{rollno}}" type="text" class="validate">
-                <label for="rollno">Roll No</label>
+                <input hidden id="userldap" name="userldap" value="{{userLDAP}}" type="text" class="validate">
               </div>
 
               <div class="input-field col l3">
@@ -114,6 +114,7 @@
       </div>
 
               <div class="row center" >
+                <span style="color:red; opacity: 0.8">{{error}}</span><br><br>
                 <button type="submit" id="submit-button" class="btn-large waves-effect waves-light teal lighten-1 ">Save <i class="mdi-content-send right"></i></button>
               </div>
 

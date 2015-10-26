@@ -23,9 +23,9 @@ def doLogin(userName, passWord):
 def editCSV(postData):
 
 	found = False
-	userData = [postData.get("rollno"), postData.get("uname"), postData.get("currb"), postData.get("cpi"), postData.get("category")]
+	userData = [postData.get("rollno"), postData.get("uname").title(), postData.get("currb"), postData.get("cpi"), postData.get("category")]
 
-	for i in range(len(postData) - 6):
+	for i in range(len(postData) - 7):
 		userData.append(postData.get("pref"+str(i+1)))
 	
 	if not os.path.isfile("static/students.csv"):
@@ -66,7 +66,6 @@ def getbranches():
 				branches.append(row[0])
 	return branches
 
-
 def dealWith(f1, f2):
 
 	with open('static/students.csv', 'w') as destination:
@@ -76,3 +75,24 @@ def dealWith(f1, f2):
 	with open('static/branches.csv', 'w') as destination:
 	    for chunk in f2.chunks():
 	        destination.write(chunk)
+
+def isCorrect(postData):
+
+	if(postData.get("uname") == ""):
+		return "Please enter your name!"
+
+	cpi = postData.get("cpi")
+	if len(cpi) == 4:
+		if cpi[1] == ".":
+			if (cpi[0].isdigit() and cpi[2:4].isdigit()):
+				if not (int(cpi[0]) >= 0 and int(cpi[0]) <= 9 and int(cpi[2:4]) >= 0 and int(cpi[2:4]) <= 99):
+					return "Your CPI is out of bounds!"
+			else:
+				return "Your CPI isn't a number!"	
+		else:
+			return "Please follow the standard CPI format!"
+	else:
+		if cpi != "10.00":
+			return "Please enter your CPI (correctly) upto 2 decimal digits!"
+
+	return "none"
