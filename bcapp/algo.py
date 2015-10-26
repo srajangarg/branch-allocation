@@ -8,9 +8,10 @@ def branchchange(branchfile, studentfile):
 			self.sancStrength = int(information[1])
 			self.name = information[0]
 			self.curStrength = int(information[2])
-			self.maxStrength = int(self.sancStrength + round(self.sancStrength/10,0))
+			self.maxStrength = int(self.sancStrength + round(self.sancStrength/10.0))
 			self.minStrength = self.sancStrength*0.75
 			self.MaxUnallowedCPI = 6.99
+			self.MaxUntransferredCPI = 6.99
 			self.MinAllowedCPI = 10.0
 			self.MinTransferrdCPI = 10.0
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
@@ -30,15 +31,24 @@ def branchchange(branchfile, studentfile):
 					self.preferences.append(branchmap[branchpref])
 			self.tempbranch = self.branch
 			# self.preferences = information[5:]
-	
+
 		# Validate whether a student is eligible for branch change or not according
 		# to the CPI criterion
 		def isEligible(self):
+
 			if((self.category == "GE") | (self.category == "OBC")):
 				return (self.cpi >= 8.00)
 			else:
 				return (self.cpi >= 7.00)
 
+		def finalStatus(self):
+			if(not self.isEligible()):
+				return "Ineligible"
+			elif(self.tempbranch == self.branch):
+				return "Branch Unchanged"
+			else:
+				return branches[self.tempbranch].name
+		
 		def allotBranch(self):
 			status = -1
 			for dept in self.preferences:
@@ -56,7 +66,8 @@ def branchchange(branchfile, studentfile):
 					break
 
 				elif(branches[dept].curStrength < branches[dept].maxStrength):
-					
+					if(CPI < branches[self.tempbranch].MaxUntransferredCPI):
+						break;
 					updatedStrength = branches[self.tempbranch].curStrength -1
 
 					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferrdCPI) and CPI > branches[dept].MaxUnallowedCPI)):
@@ -68,16 +79,13 @@ def branchchange(branchfile, studentfile):
 						status = dept
 						break
 
+
 			if(status !=-1):
 				self.preferences = self.preferences[0:self.preferences.index(status)]
+			elif(branches[self.tempbranch].curStrength -1 < branches[self.tempbranch].minStrength):
+				branches[self.tempbranch].MaxUntransferredCPI = max(curStudent.cpi, branches[self.tempbranch].MaxUntransferredCPI)
 			return status
 
-
-	def changedBranch(candidate):
-		if(candidate.tempbranch == candidate.branch):
-			return "Branch Unchanged"
-		else:
-			return branches[candidate.tempbranch].name
 
 	branches = []
 	students = []
@@ -97,7 +105,7 @@ def branchchange(branchfile, studentfile):
 				branchmap[newbranch.name] = newbranch.code;
 				numbranches = numbranches+1
 	 
-	# for curbranch in branches:
+	#for curbranch in branches:
 	#  	print(curbranch.name,curbranch.code,curbranch.sancStrength,curbranch.curStrength,sep = " ")
 
 	with open(studentfile,'r') as csvfile:
@@ -121,7 +129,6 @@ def branchchange(branchfile, studentfile):
 	tempStudents = students[:]
 	changed = len(students)
 	# iterations =0
-
 	# while(len(tempstudents) !=0 and iterations!=1):
 	# 	iterations=0
 	while (len(tempStudents) != 0 and changed != 0):
@@ -159,10 +166,7 @@ def branchchange(branchfile, studentfile):
 	students.extend(ineligibleStudents)
 	students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
 	for curStudent in students:
-		if(curStudent.tempbranch != curStudent.branch):
-			finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name, branches[curStudent.tempbranch].name])
-		elif curStudent.isEligible():
-			finalList.append([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Branch Unchanged"])
-		else:
-			finalList.append([curStudent.roll,curStudent.name,branches[curStudent.branch].name,"Ineligible"])
+		print(curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus())
+		finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus()])
 	return finalList
+
