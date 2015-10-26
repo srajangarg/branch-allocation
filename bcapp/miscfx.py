@@ -95,4 +95,22 @@ def isCorrect(postData):
 		if cpi != "10.00":
 			return "Please enter your CPI (correctly) upto 2 decimal digits!"
 
+	chosenB = postData.get("currb")
+	prefs = []
+
+	if len(postData) == 7:
+		return "Please choose at least 1 preference!"
+
+	for i in range(len(postData) - 7):
+		prefs.append(postData.get("pref"+str(i+1)))
+
+	for pref in prefs:
+		if pref == chosenB:
+			return "You can't have your current branch as a preference!"
+
+	for i in range(len(prefs)):
+		for j in range(i+1, len(prefs)):
+			if prefs[i] == prefs[j]:
+				return "No two preferences can be the same!"
+
 	return "none"
