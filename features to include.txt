@@ -1,0 +1,9 @@
+ldap -> elaborate fully
+elaborate eplanation of algorithm and datastructures used, their efficiency and all
+(in bonus, add the eplanantion of DFS algo)
+all the data valdiation in detail
+ability to export/import data at any point
+download the result or view it online
+minimalist material design (good to see), responsive behaviour
+only those branches given as option, which present in branches.csv
+dynamic creation/deletion of preferences
