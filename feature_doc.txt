@@ -1,51 +1,128 @@
 
+The following features today are present in our WebApp:
 
 User Login(without LDAP):
 
-	The user needs to fill both his username and his password. Without it, an error message will appear.
+	The user needs to fill his username as well as his password. Without both of them, a error message will appear.
 
-	Test Cases:
+		Test Cases:
 
-		1.	Enter only one of the username or your password or leaves both the fields empty and click on the "Login" button to submit. 
-			Expected Behaviour:
-			The page loads again with a message above "Login" button as "Please enter both the fields".Data wont be accepted until correctly submitted.
+			1.	Enter only one of the username or your password or leaves both the fields empty and click on the "Login" button to submit. 
+				Expected Behaviour:
+				The page loads again with a message above "Login" button as "Please enter both the fields".Data wont be accepted until correctly submitted.
 
-		2.	Enter both username and password and submit.
-			Expected Behaviour:
-			The page correctly redirects you to the Preerences page where you can enter your preferences.
+			2.	Enter both username and password and submit.
+				Expected Behaviour:
+				The page correctly redirects you to the Preerences page where you can enter your preferences.
+
+	If a user tries to login before the webapp is "set up" (ie branches.csv is not uploaded), prompts with error
+
+LDAP Authentication :
+	
+	Our WebApp utilizes LDAP authentication. It pings the IIT Bombay LDAP server ldap://ldap.iitb.ac.in
+	It recieves a response from the server which authenticates the user. This is how an official app from
+	IIT Bombay might work, as they would not expect a "register user" interface. All users are already "registered"
+	on LDAP. 
+
+	It might not be able to test our webapp to its full extent because of this feature, but it can be easily turned off.
+
+
+Material Design :
+
+	Our webapp uses the now famous, Material design. It is a flat design and feels very clean and intuitive.
+	The behaviour of the form fields also feel responsive.
 
 
 Submitting Preferences:
 
-	After successful login, the user is directed to a page where he needs to submit his name along with his CPI and Branch Preference list and his Category and current Branch.
-	The Category field is default initialized to GEN.For changing/filling any entry, the user needs to click on the entry and either a scroll menu or a text field would appear.
-	The user can add and remove preferences using the add and remove button on the page. After filling all your details and preferences , you need to click on "Save" Button at the
-	bottom of the page.
+	
+	After successful login, the user is directed to a page where he needs to submit his name along with his CPI and 
+	branch Preference list and his Category and current Branch. The Category field is default initialized to GEN.
+	For changing/filling any entry, the user needs to click on the entry and either a scroll menu or a text field would appear.
 
-Test Cases:
 
-Name field:
-1.	The Name is not entered by the User.
-	Expected Behaviour:
-	The page loads again with a message "Please enter your Name"
+	The user can add and remove preferences using the add and remove button on the page. After filling all your 
+	details and preferences , you need to click on "Save" Button at the bottom of the page.
+	The options provided on this page are modified according to the file branches.csv uploaded by admin.
 
-CPI:
 
-1.  The CPI field is empty.
-	Expected Behaviour:
-	The page loads again with a message "You have not entered your CPI! Please enter it correct upto 2 decimal places"
+	Name field:
 
-2. 	The CPI entered is not a number.For example, it contains alphabets, symbols(other than '.') etc.
-	Expected Behaviour:
-	The page loads again with a message "Your CPI isn't a positive number!"	
+		The Name is not entered by the User.
+		Expected Behaviour:
+		The page loads again with a message "Please enter your Name"
 
-3.	The CPI entered is greater than 10. 
-	Expected Behaviour:
-	The page loads again with a message "Your CPI is out of bounds!"
+	CPI:
 
-4.	The CPI is not entered in the standard format i.e zeroes are appended before it.
-	Expected Behaviour:
-	The page loads again with a message "Please follow the standard CPI format and don't add any extra prefix zeroes!"
+		The CPI field is empty.
+		Expected Behaviour:
+		The page loads again with a message "You have not entered your CPI! Please enter it correct upto 2 decimal places"
 
-Current Branch:
+		The CPI entered is not a number.For example, it contains alphabets, symbols(other than '.') etc.
+		Expected Behaviour:
+		The page loads again with a message "Your CPI isn't a positive number!"	
+
+		The CPI entered is greater than 10. 
+		Expected Behaviour:
+		The page loads again with a message "Your CPI is out of bounds!"
+
+		The CPI is not entered in the standard format i.e zeroes are appended before it.
+		Expected Behaviour:
+		The page loads again with a message "Please follow the standard CPI format and don't add any extra prefix zeroes!"
+
+	Preferences:
+
+		The preferences can be created or deleted dynamically by using the add or remove button.
+		Also, in the preferences list only those branches are given as options which are present in the file branches.csv.
+
+		No Preference is entered
+		Expected Behaviour:
+		The page loads again with a message "Please choose at least 1 preference!"
+
+		One of the chosen preference is the user's current branch.
+		Expected Behaviour:
+		The page loads again with a message "You can't have your current branch as a preference!"
+
+		Atleast two preferences chosen are same.
+		Expected Behaviour:
+		The page loads again with a message "No two preferences can be the same!"
+
+
+	Current Branch:
+
+		The user can select his current branch from one of the options in the list he gets after clicking the entry.
+		Only those branches are given as options that are present in branches.csv. 
+		The user needs to select appropriate one which applies to him.
+
+
+	Categories:
+
+		The user can select one of the five possible categories.
+
+	Also an option to cancel, current made changes and logout.
+
+Admin
+	
+	The admin can sign with the set username (this will be secure, when LDAP is used)
+
+	Import/Export:
+
+	The admin can import files containing the information about branches and preferences list at any point.
+	These are saved as branches.csv and students.csv respectively and can be downloaded as well by the admin.
+
+	TestCase:
+
+		None of the files, students.csv and branches.csv is uploaded.
+		Expected Behaviour:
+		The page loads again with a message "Choose at least one file!"
+
+		Files uploaded are not correct.
+		Expected Behaviour:
+		The admin is directed to a "Not Admin" Page which gives the options to admin to login back as admin.
+
+	Result: 
+
+		The admin after uploading the correct input files can view the result online as well as he can download 
+		the result as a csv file.
+
 
