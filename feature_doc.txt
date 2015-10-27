@@ -110,14 +110,14 @@ Admin
 
 	Import/Export:
 
-	The admin can import files containing the information about branches and preferences list at any point.
-	These are saved as branches.csv and students.csv respectively and can be downloaded as well by the admin.
+		The admin can import files containing the information about branches and preferences list at any point.
+		These are saved as branches.csv and students.csv respectively and can be downloaded as well by the admin.
 
 	TestCase:
 
-		None of the files, students.csv and branches.csv is uploaded.
+		None or only one of the files, students.csv or branches.csv is uploaded.
 		Expected Behaviour:
-		The page loads again with a message "Choose at least one file!"
+		The page loads again with a message "Choose both files!"
 
 		Files uploaded are not correct.
 		Expected Behaviour:

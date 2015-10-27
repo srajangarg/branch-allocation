@@ -1,4 +1,4 @@
-import os, csv
+import os, csv, ldap
 
 def doLogin(userName, passWord):
 
@@ -68,19 +68,13 @@ def getbranches():
 
 def dealWith(f1, f2):
 
-	try :
-		with open('static/students.csv', 'w') as destination:
-		    for chunk in f1.chunks():
-		        destination.write(chunk)
-	except : 
-		pass
+	with open('static/students.csv', 'w') as destination:
+	    for chunk in f1.chunks():
+	        destination.write(chunk)
 
-	try:
-		with open('static/branches.csv', 'w') as destination:
-		    for chunk in f2.chunks():
-		        destination.write(chunk)
-	except:
-		pass
+	with open('static/branches.csv', 'w') as destination:
+	    for chunk in f2.chunks():
+	        destination.write(chunk)
 
 def isCorrect(postData):
 

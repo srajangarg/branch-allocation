@@ -39,7 +39,7 @@ def submit(request):
 
 
 	    ################### SET ADMIN USERNAME BELOW #######################
-	    ADMIN = "garg"
+	    ADMIN = "admin"
 	    ####################################################################
 
 
@@ -113,17 +113,10 @@ def upload(request):
 
 	if request.method == 'POST':
 
-		if len(request.FILES) == 0 :
-			return render(request,"bcapp/admin.html", {"error":"Choose at least one file!"})
+		if len(request.FILES) != 2 :
+			return render(request,"bcapp/admin.html", {"error":"Choose both files!"})
 
-		if 'file1' in request.FILES:
-			if 'file2' in request.FILES:
-				dealWith(request.FILES['file1'], request.FILES['file2'])
-			else:
-				dealWith(request.FILES['file1'], 'null')
-		else :
-			dealWith('null', request.FILES['file2'])
-
+		dealWith(request.FILES['file1'], request.FILES['file2'])
 		return render(request,"bcapp/uploaded.html")
 
 def resultcsv(request):

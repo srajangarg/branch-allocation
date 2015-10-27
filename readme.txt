@@ -61,8 +61,8 @@ Notes :
 	To test the algorithmic part of the project, one can switch off the ldap, and goto the admin page,
 	by logging in using the set admin name
 
-	Also, we have not used models in this project. We felt that using a databse was overkill, and redundant
-	We know this is bad programming practice, but it was really not needed in our project
+	Also, we have not used models in this project. We felt that using a databse was overkill (for the required task
+	and redundant. We know this is bad programming practice, but it was really not needed in our project
 
 Citations :
 
