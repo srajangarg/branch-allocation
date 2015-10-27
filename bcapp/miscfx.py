@@ -23,7 +23,7 @@ def doLogin(userName, passWord):
 def editCSV(postData):
 
 	found = False
-	userData = [postData.get("rollno"), postData.get("uname").title(), postData.get("currb"), postData.get("cpi"), postData.get("category")]
+	userData = [postData.get("rollno"), postData.get("uname"), postData.get("currb"), postData.get("cpi"), postData.get("category")]
 
 	for i in range(len(postData) - 7):
 		userData.append(postData.get("pref"+str(i+1)))
@@ -68,13 +68,19 @@ def getbranches():
 
 def dealWith(f1, f2):
 
-	with open('static/students.csv', 'w') as destination:
-	    for chunk in f1.chunks():
-	        destination.write(chunk)
+	try :
+		with open('static/students.csv', 'w') as destination:
+		    for chunk in f1.chunks():
+		        destination.write(chunk)
+	except : 
+		pass
 
-	with open('static/branches.csv', 'w') as destination:
-	    for chunk in f2.chunks():
-	        destination.write(chunk)
+	try:
+		with open('static/branches.csv', 'w') as destination:
+		    for chunk in f2.chunks():
+		        destination.write(chunk)
+	except:
+		pass
 
 def isCorrect(postData):
 
@@ -82,18 +88,29 @@ def isCorrect(postData):
 		return "Please enter your name!"
 
 	cpi = postData.get("cpi")
-	if len(cpi) == 4:
-		if cpi[1] == ".":
-			if (cpi[0].isdigit() and cpi[2:4].isdigit()):
-				if not (int(cpi[0]) >= 0 and int(cpi[0]) <= 9 and int(cpi[2:4]) >= 0 and int(cpi[2:4]) <= 99):
-					return "Your CPI is out of bounds!"
-			else:
-				return "Your CPI isn't a number!"	
-		else:
-			return "Please follow the standard CPI format!"
+
+	if(cpi == ""):
+		return "You have not entered your CPI! Please enter it correct upto 2 decimal places"
+	isNum = True
+	countDot = 0
+	for x in range(0,len(cpi)):
+		if( (not cpi[x].isdigit()) and cpi[x] != '.'):
+			isNum = False
+			break
+		elif(cpi[x] == '.'):
+			countDot = countDot + 1
+			if(countDot > 1):
+				isNum = False
+				break
+
+	if(isNum):
+		val = float(cpi)
+		if(val > 10):
+			return "Your CPI is out of bounds!"	
+		elif(len(cpi) != 4 and val != 10):
+			return "Please follow the standard CPI format and don't add any extra prefix zeroes!"
 	else:
-		if cpi != "10.00":
-			return "Please enter your CPI (correctly) upto 2 decimal digits!"
+		return "Your CPI isn't a positive number!"
 
 	chosenB = postData.get("currb")
 	prefs = []
