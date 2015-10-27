@@ -57,7 +57,10 @@ Notes :
 	from the branches.csv file (Only those options, which actually exist in the file)
 
 	To test the algorithmic part of the project, one can switch off the ldap, and goto the admin page,
-	by logging in using the set admin name.
+	by logging in using the set admin name
+
+	Also, we have not used models in this project. We felt that using a databse was overkill, and redundant
+	We know this is bad programming practice, but it was really not needed in our project
 
 Citations :
 
