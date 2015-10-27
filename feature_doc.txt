@@ -1,8 +1,9 @@
 
+The following features today are present in our WebApp:
 
-User Login(without LDAP):
+#User Login(without LDAP):
 
-The user needs to fill his username as well as his password.
+The user needs to fill his username as well as his password. Without both of them, a error message will appear.
 
 Test Cases:
 
@@ -15,21 +16,27 @@ Test Cases:
 	The page correctly redirects you to the Preerences page where you can enter your preferences.
 
 
-Submitting Preferences:
+#Submitting Preferences:
 
+1.
 After successful login, the user is directed to a page where he needs to submit his name along with his CPI and Branch Preference list and his Category and current Branch.
 The Category field is default initialized to GEN.For changing/filling any entry, the user needs to click on the entry and either a scroll menu or a text field would appear.
-The user can add and remove preferences using the add and remove button on the page. After filling all your details and preferences , you need to click on "Save" Button at the
+
+2.
+The user can add and remove preferences using the add and remove button on the page. 
+After filling all your details and preferences , you need to click on "Save" Button at the
 bottom of the page.
+The options provided on this page are modified according to the file branches.csv uploaded by admin.
 
 Test Cases:
 
-Name field:
+##Name field:
+
 1.	The Name is not entered by the User.
 	Expected Behaviour:
 	The page loads again with a message "Please enter your Name"
 
-CPI:
+##CPI:
 
 1.  The CPI field is empty.
 	Expected Behaviour:
@@ -47,5 +54,54 @@ CPI:
 	Expected Behaviour:
 	The page loads again with a message "Please follow the standard CPI format and don't add any extra prefix zeroes!"
 
-Current Branch:
+##Preferences:
+The preferences can be created or deleted dynamically by using the add or remove button.
+Also, in the preferences list only those branches are given as options which are present in the file branches.csv.
 
+1.	No Preference is entered
+	Expected Behaviour:
+	The page loads again with a message "Please choose at least 1 preference!"
+
+2.	One of the chosen preference is the user's current branch.
+	Expected Behaviour:
+	The page loads again with a message "You can't have your current branch as a preference!"
+
+3.  Atleast two preferences chosen are same.
+	Expected Behaviour:
+	The page loads again with a message "No two preferences can be the same!"
+
+
+##Current Branch:
+The user can select his current branch from one of the options in the list he gets after clicking the entry.
+Only those branches are given as options that are present in branches.csv. 
+The user needs to select appropriate one which applies to him.
+
+
+##Categories:
+
+The user can select one of the five possible categories.
+
+#Admin
+The admin can sign with username "admin" and password "admin".
+
+#Import/Export:
+
+The admin can import files containing the information about branches and preferences list at any point.
+These are saved as branches.csv and students.csv respectively and can be downloaded as well by the admin.
+
+TestCase:
+
+1.	None of the files, students.csv and branches.csv is uploaded.
+	Expected Behaviour:
+	The page loads again with a message "Choose at least one file!"
+
+2.	Files uploaded are not correct.
+	Expected Behaviour:
+	The admin is directed to a "Not Admin" Page which gives the options to admin to login back as admin.
+
+#Result: 
+The admin after uploading the correct input files can view the result online as well as he can download 
+the result as a csv file.
+
+#Material Design:
+Implemented minimalist material design which is good to see, and responsive behaviour.
