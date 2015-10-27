@@ -18,8 +18,8 @@ Dependencies :
 	
 	######## Basic Dependenices ######
 
-	python 2.7 				pre-installed on ubuntu systems
-	django for 2.7			sudo pip install django
+	python2.7 				pre-installed on ubuntu systems
+	django1.8 for 2.7			sudo pip install django
 
 	####### LDAP Authentication ######
 
@@ -29,13 +29,19 @@ Dependencies :
 
 Running :
 
-	Before running two things need to be set :
+	Before running these things need to be set :
 
-		In file /bcapp/views.py:
+		In file /bcapp/views.py :
 
-			line 42 	:		The name of the admin must be set by you
+			line 42 	:			The username of the admin must be set by you
 
-			line 46-55	:		Only one of the given options must be enabled (uncommented)
+			line 46-55	:			Only one of the given options must be enabled (uncommented)
+
+		Make sure these two files exist :
+
+			/static/students.csv :	Contains the students information, maybe empty
+
+			/static/branches.csv : 	Must be filled with the correct branch data of the year!
 
 	To run the server, simply "python manage.py runserver"
 
@@ -47,6 +53,9 @@ Notes :
 	So, we have implemented LDAP authentication from ldap.iitb.ac.in
 	This means we have not implemented a "create user" mechanism
 
+	The two static csv files must be present at all times. Also, the user get the options dynamically 
+	from the branches.csv file (Only those options, which actually exist in the file)
+
 	To test the algorithmic part of the project, one can switch off the ldap, and goto the admin page,
 	by logging in using the set admin name.
 
@@ -56,3 +65,6 @@ Citations :
 	https://docs.djangoproject.com/en/1.8/howto/custom-template-tags/
 	https://github.com/DheerendraRathor/django-auth-ldap-ng
 	http://materializecss.com/
+	http://www.python-ldap.org/doc/html/index.html
+	http://stackoverflow.com/questions/8321217/django-csrf-token-missing-or-incorrect
+	https://docs.djangoproject.com/en/1.8/topics/templates/
