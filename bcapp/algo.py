@@ -13,10 +13,11 @@ def branchchange(branchfile, studentfile):
 			self.MaxUnallowedCPI = 6.99
 			self.MaxUntransferredCPI = 6.99
 			self.MinAllowedCPI = 10.0
-			self.MinTransferrdCPI = 10.0
+			self.MinTransferredCPI = 10.0
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
 		def resetdata(self):
 			self.MaxUnallowedCPI = 6.99
+			self.MaxUntransferredCPI = 6.99
 
 	class Student:
 		def __init__(self, information):
@@ -60,7 +61,7 @@ def branchchange(branchfile, studentfile):
 				if(CPI == branches[dept].MinAllowedCPI):
 					branches[dept].curStrength = branches[dept].curStrength + 1
 					branches[self.tempbranch].curStrength = branches[self.tempbranch].curStrength -1
-					branches[self.tempbranch].MinTransferrdCPI = CPI
+					branches[self.tempbranch].MinTransferredCPI = CPI
 					self.tempbranch = dept
 					status = dept
 					break
@@ -70,7 +71,7 @@ def branchchange(branchfile, studentfile):
 						break;
 					updatedStrength = branches[self.tempbranch].curStrength -1
 
-					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferrdCPI) and CPI > branches[dept].MaxUnallowedCPI)):
+					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferrdCPI) and CPI >= branches[dept].MaxUnallowedCPI)):
 						branches[dept].curStrength = branches[dept].curStrength + 1
 						branches[self.tempbranch].curStrength = updatedStrength
 						branches[self.tempbranch].MinTransferrdCPI = CPI
