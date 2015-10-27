@@ -71,10 +71,10 @@ def branchchange(branchfile, studentfile):
 						break;
 					updatedStrength = branches[self.tempbranch].curStrength -1
 
-					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferrdCPI) and CPI >= branches[dept].MaxUnallowedCPI)):
+					if(CPI >= 9.00 or ((updatedStrength >= branches[self.tempbranch].minStrength or CPI == branches[self.tempbranch].MinTransferredCPI) and CPI >= branches[dept].MaxUnallowedCPI)):
 						branches[dept].curStrength = branches[dept].curStrength + 1
 						branches[self.tempbranch].curStrength = updatedStrength
-						branches[self.tempbranch].MinTransferrdCPI = CPI
+						branches[self.tempbranch].MinTransferredCPI = CPI
 						branches[dept].MinAllowedCPI = min(branches[dept].MinAllowedCPI,CPI)
 						self.tempbranch = dept
 						status = dept
