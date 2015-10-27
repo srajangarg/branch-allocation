@@ -35,7 +35,7 @@ def submit(request):
 	    userPASS = request.POST.get("ldappass")
 
 	    if userLDAP == "" or userPASS == "":
-	    	return render(request,"bcapp/login.html", {"error":"Both fields must be filled!"})
+	    	return render(request,"bcapp/login.html", {"ldapid":userLDAP,"error":"Both fields must be filled!"})
 
 
 	    ################### SET ADMIN USERNAME BELOW #######################
@@ -65,11 +65,11 @@ def submit(request):
 	    		branches = getbranches()
 
 	    		if not branches:
-	    			return render(request,"bcapp/login.html", {"error":"branches.csv has not been uploaded by admin"})
+	    			return render(request,"bcapp/login.html", {"ldapid":userLDAP,"error":"branches.csv has not been uploaded by admin"})
 
 	    		return render(request,"bcapp/index.html", {"userLDAP": userLDAP, "rollno": rollno, "oldPrefs": oldPrefs, "branches": branches, "categories":categories, "range":range(len(oldPrefs)-5), "bcpref":oldPrefs[5:]})
 	    else:
-	    	return render(request,"bcapp/loginfail.html")
+	    	return render(request,"bcapp/login.html", {"ldapid":userLDAP,"error":"Your credentials are incorrect!"})
 
 
 def saved(request):
