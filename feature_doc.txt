@@ -2,25 +2,25 @@
 
 User Login(without LDAP):
 
-The user needs to fill his username as well as his password.
+	The user needs to fill both his username and his password. Without it, an error message will appear.
 
-Test Cases:
+	Test Cases:
 
-1.	Enter only one of the username or your password or leaves both the fields empty and click on the "Login" button to submit. 
-	Expected Behaviour:
-	The page loads again with a message above "Login" button as "Please enter both the fields".Data wont be accepted until correctly submitted.
+		1.	Enter only one of the username or your password or leaves both the fields empty and click on the "Login" button to submit. 
+			Expected Behaviour:
+			The page loads again with a message above "Login" button as "Please enter both the fields".Data wont be accepted until correctly submitted.
 
-2.	Enter both username and password and submit.
-	Expected Behaviour:
-	The page correctly redirects you to the Preerences page where you can enter your preferences.
+		2.	Enter both username and password and submit.
+			Expected Behaviour:
+			The page correctly redirects you to the Preerences page where you can enter your preferences.
 
 
 Submitting Preferences:
 
-After successful login, the user is directed to a page where he needs to submit his name along with his CPI and Branch Preference list and his Category and current Branch.
-The Category field is default initialized to GEN.For changing/filling any entry, the user needs to click on the entry and either a scroll menu or a text field would appear.
-The user can add and remove preferences using the add and remove button on the page. After filling all your details and preferences , you need to click on "Save" Button at the
-bottom of the page.
+	After successful login, the user is directed to a page where he needs to submit his name along with his CPI and Branch Preference list and his Category and current Branch.
+	The Category field is default initialized to GEN.For changing/filling any entry, the user needs to click on the entry and either a scroll menu or a text field would appear.
+	The user can add and remove preferences using the add and remove button on the page. After filling all your details and preferences , you need to click on "Save" Button at the
+	bottom of the page.
 
 Test Cases:
 
