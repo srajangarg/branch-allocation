@@ -1,0 +1,6 @@
+In the order of CPI, first 3 students get their branch branch changed to their first preference CS B.Tech.
+Now branch of "ASU" and "ATU" will also be changed to CS B.Tech because a student of cpi 9.74 has been transferred to CS B.Tech even though strength of CS B.Tech is already increased by 10%.
+Next 6 students are transferred to EE B.Tech.
+"ATN" no branch change because of no space in CS B.Tech
+"IRT" transferred to EE B.Tech
+No branch change for "AKL" because of no space in CS B.Tech
