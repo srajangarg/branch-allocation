@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^admin/$', views.admin, name="admin"),
     url(r'^upload/$', views.upload, name="upload"),
     url(r'^resultcsv/$', views.resultcsv, name="resultcsv"),
+    url(r'^resultcsvchallenge/$', views.resultcsvchallenge, name="resultcsvchallenge"),
+    url(r'^resultviewchallenge/$', views.resultviewchallenge, name="resultviewchallenge"),
     url(r'^resultview/$', views.resultview, name="resultview"),
 ]
 

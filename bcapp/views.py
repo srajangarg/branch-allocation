@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import csv
 from miscfx import *
 from algo import *
+from algochallenge import *
 
 categories = ["GEN", "OBC", "SC", "ST", "PwD"]
 
@@ -138,12 +139,42 @@ def resultcsv(request):
 	except:
 		return render(request, "bcapp/notadmin.html")
 
+def resultcsvchallenge(request):
+
+	try:
+		print request.session['user']
+
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename="result.csv"'
+
+		myList = branchchangechallenge("static/branches.csv", "static/students.csv")
+		writer = csv.writer(response)
+
+		for curr in myList:
+			writer.writerow([curr[0], curr[1], curr[2], curr[3]])
+
+		return response
+
+	except:
+		return render(request, "bcapp/notadmin.html")
+
 def resultview(request):
 
 	try:
 		print request.session['user']
 
 		myList = branchchange("static/branches.csv", "static/students.csv")
+		return render(request, "bcapp/result.html", {"finalList":myList})
+
+	except:
+		return render(request, "bcapp/notadmin.html")
+
+def resultviewchallenge(request):
+
+	try:
+		print request.session['user']
+
+		myList = branchchangechallenge("static/branches.csv", "static/students.csv")
 		return render(request, "bcapp/result.html", {"finalList":myList})
 
 	except:
