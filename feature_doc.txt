@@ -99,7 +99,10 @@ Submitting Preferences:
 
 		The user can select one of the five possible categories.
 
-	Also an option to cancel, current made changes and logout.
+	If the user fills his all his data, but by mistake fills a field incorrectly, his data will not be changed (not be reset)
+	The changes would have been saved.
+
+	Also an option to cancel the session, current made changes and logout.
 
 Admin
 	

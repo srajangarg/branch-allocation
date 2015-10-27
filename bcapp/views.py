@@ -74,8 +74,6 @@ def submit(request):
 
 def saved(request):
 
-	
-
 	if request.method == 'GET':
 		return render(request, "bcapp/lost.html")
 
@@ -85,7 +83,17 @@ def saved(request):
 
 		if error == "none":
 			editCSV(postData)
-			return render(request,"bcapp/saved.html")
+			warn = ""
+
+			if postData.get("category")=="GEN":
+				 if float(postData.get("cpi")) < 8:
+				  	warn = "Your CPI is below the cutoff, but the form was submitted!"
+			else:
+				if float(postData.get("cpi")) < 7:
+					warn = "Your CPI is below the cutoff, but the form was submitted!"
+
+			return render(request,"bcapp/saved.html",{"warn":warn})
+			
 		else:
 			rollno = postData.get("rollno")
 			userLDAP =  postData.get("userldap")
