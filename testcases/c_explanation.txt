@@ -1,6 +1,0 @@
-In the order of CPI, first 5 students of ME get their branch branch changed to their first preferences.
-Now branch of "AGA" will not be changed because of 75% rule for ME branch.
-Branch of "WAL" cannot be changed to CS B.Tech because a student of higher cpi is denied to go to CS B.Tech.
-Branch of "ARG" cannot be changed to CS B.Tech because a student of higher cpi is denied to go to CS B.Tech. So he'll get his branch changed to EP B.Tech.
-Branch of "YOG" will not be changed again because of 75% rule for ME branch.
-Branch of "UTK" cannot be changed to CS B.Tech or EE B.Tech because a student of higher cpi is denied to go to CS B.Tech as well as EE B.Tech.
