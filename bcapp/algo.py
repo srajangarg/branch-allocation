@@ -166,7 +166,6 @@ def branchchange(branchfile, studentfile):
 	students.extend(ineligibleStudents)
 	students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
 	for curStudent in students:
-		print(curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus())
 		finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus()])
 	return finalList
 
