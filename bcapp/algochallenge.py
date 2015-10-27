@@ -1,7 +1,7 @@
 import csv, sys;
-
-def branchchange(branchfile, studentfile):
-	
+status = False
+def branchchangechallenge(branchfile, studentfile):
+	global status
 	class Branch:
 		def __init__(self,information,deptcode):
 			self.code = deptcode
@@ -13,12 +13,18 @@ def branchchange(branchfile, studentfile):
 			self.minStrength = self.sancStrength*0.75
 			self.MaxUnallowedCPI = 6.99
 			self.MaxUntransferredCPI = 6.99
-			self.MinAllowedCPI = 10.0
-			self.MinTransferredCPI = 10.0
+			self.MinAllowedCPI = 10.1
+			self.MinTransferredCPI = 10.1
 			# self.minStrength = int(self.sancStrength - round(self.sancStrength/4,0))
 		def resetdata(self):
 			self.MaxUnallowedCPI = 6.99
 			self.MaxUntransferredCPI = 6.99
+
+		def cutoffCPI(self):
+			if self.MinAllowedCPI==10.1:
+				return "NA"
+			else:
+				return self.MinAllowedCPI
 
 	class Student:
 		def __init__(self, information):
@@ -88,6 +94,25 @@ def branchchange(branchfile, studentfile):
 				branches[self.tempbranch].MaxUntransferredCPI = max(curStudent.cpi, branches[self.tempbranch].MaxUntransferredCPI)
 			return status
 
+	def explore(i,initialbranch):
+		global status
+		for pref in tempStudents[i].preferences:
+			curstack.append([i,pref])
+			if pref == initialbranch:
+				status = True;
+				return
+			for j,newStudent in enumerate(tempStudents):
+				if (newStudent.tempbranch == pref):
+					isparent = False
+					for parent in curstack:
+						if(parent[0]==j):
+							isparent = True
+							break;
+					if not isparent:
+						explore(j,initialbranch)
+						if status:
+							return
+			curstack.pop()
 
 	branches = []
 	students = []
@@ -95,7 +120,7 @@ def branchchange(branchfile, studentfile):
 	branchmap = {}
 	ineligibleStudents = []
 	finalList = []
-	# finalBranchList = []
+	finalBranchList = []
 
 	with open(branchfile,'r') as csvfile:
 		branchreader = csv.reader(csvfile)
@@ -165,12 +190,21 @@ def branchchange(branchfile, studentfile):
 		del toDelete[:]
 		for branch in branches:
 			branch.resetdata()
+	curstack = []
+	status = False		
+	for i,curStudent in enumerate(tempStudents):
+		curstack = []
+		status = False
+		explore(i,curStudent.tempbranch)
+		for j in curstack:
+			tempStudents[j[0]].tempbranch = j[1]
+			tempStudents[j[0]].preferences = tempStudents[j[0]].preferences[0:tempStudents[j[0]].preferences.index(j[1])]
 
 	students.extend(ineligibleStudents)
 	students = list(sorted( students, key = lambda x: (x.roll,x.name.lower())))
 	for curStudent in students:
 		finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus()])
-	# for curbranch in branches:
-	# 	finalBranchList.append([curbranch.name, curbranch.MinAllowedCPI, curbranch.sancStrength, curbranch.origStrength, curbranch.curStrength])
+	for curbranch in branches:
+		finalBranchList.append([curbranch.name, curbranch.cutoffCPI(), curbranch.sancStrength, curbranch.origStrength, curbranch.curStrength])
 	return finalList
 
