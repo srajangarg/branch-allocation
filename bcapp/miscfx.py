@@ -23,7 +23,7 @@ def doLogin(userName, passWord):
 def editCSV(postData):
 
 	found = False
-	userData = [postData.get("rollno"), postData.get("uname").title(), postData.get("currb"), postData.get("cpi"), postData.get("category")]
+	userData = [postData.get("rollno"), postData.get("uname"), postData.get("currb"), postData.get("cpi"), postData.get("category")]
 
 	for i in range(len(postData) - 7):
 		userData.append(postData.get("pref"+str(i+1)))
@@ -68,13 +68,19 @@ def getbranches():
 
 def dealWith(f1, f2):
 
-	with open('static/students.csv', 'w') as destination:
-	    for chunk in f1.chunks():
-	        destination.write(chunk)
+	try :
+		with open('static/students.csv', 'w') as destination:
+		    for chunk in f1.chunks():
+		        destination.write(chunk)
+	except : 
+		pass
 
-	with open('static/branches.csv', 'w') as destination:
-	    for chunk in f2.chunks():
-	        destination.write(chunk)
+	try:
+		with open('static/branches.csv', 'w') as destination:
+		    for chunk in f2.chunks():
+		        destination.write(chunk)
+	except:
+		pass
 
 def isCorrect(postData):
 

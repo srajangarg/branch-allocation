@@ -161,7 +161,7 @@
    var branches = {{branches|safe}};
     $('#add').click(function () { 
      
-    if(numSelects >= 8)
+    if(numSelects >= branches.length - 1)
       return;
 
     numSelects += 1;
