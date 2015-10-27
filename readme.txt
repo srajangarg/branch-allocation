@@ -43,7 +43,9 @@ Running :
 
 			/static/branches.csv : 	Must be filled with the correct branch data of the year!
 
-	To run the server, simply "python manage.py runserver"
+
+	To run the server, simply "python manage.py migrate"
+	and then "python manage.py runserver"
 
 	The webapp can be accessed on "http://127.0.0.1:8000/bcapp/"
 
