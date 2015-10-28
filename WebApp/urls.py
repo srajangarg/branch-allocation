@@ -27,6 +27,9 @@ urlpatterns = [
     url(r'^resultcsvchallenge/$', views.resultcsvchallenge, name="resultcsvchallenge"),
     url(r'^resultviewchallenge/$', views.resultviewchallenge, name="resultviewchallenge"),
     url(r'^resultview/$', views.resultview, name="resultview"),
+    url(r'^statscsv/$', views.statscsv, name="statscsv"),
+    url(r'^statscsvchallenge/$', views.statscsvchallenge, name="statscsvchallenge"),
+
 ]
 
 handler404 = "views.error404"

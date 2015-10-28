@@ -206,5 +206,5 @@ def branchchangechallenge(branchfile, studentfile):
 		finalList.append([curStudent.roll, curStudent.name, branches[curStudent.branch].name,curStudent.finalStatus()])
 	for curbranch in branches:
 		finalBranchList.append([curbranch.name, curbranch.cutoffCPI(), curbranch.sancStrength, curbranch.origStrength, curbranch.curStrength])
-	return finalList
+	return finalList,finalBranchList
 

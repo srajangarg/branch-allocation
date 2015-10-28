@@ -128,11 +128,28 @@ def resultcsv(request):
 		response = HttpResponse(content_type='text/csv')
 		response['Content-Disposition'] = 'attachment; filename="result.csv"'
 
-		myList = branchchange("static/branches.csv", "static/students.csv")
+		myList,branchList = branchchange("static/branches.csv", "static/students.csv")
 		writer = csv.writer(response)
 
-		for curr in myList:
-			writer.writerow([curr[0], curr[1], curr[2], curr[3]])
+		writer.writerows(myList)
+
+		return response
+
+	except:
+		return render(request, "bcapp/notadmin.html")
+
+def statscsv(request):
+	try:
+		print request.session['user']
+
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename="output_stats.csv"'
+
+		myList,branchList = branchchange("static/branches.csv", "static/students.csv")
+		writer = csv.writer(response)
+
+		writer.writerow(["Program","Cutoff","Santioned Strength","Original Strength","Final Strength"])
+		writer.writerows(branchList)
 
 		return response
 
@@ -147,11 +164,28 @@ def resultcsvchallenge(request):
 		response = HttpResponse(content_type='text/csv')
 		response['Content-Disposition'] = 'attachment; filename="result.csv"'
 
-		myList = branchchangechallenge("static/branches.csv", "static/students.csv")
+		myList,branchList = branchchangechallenge("static/branches.csv", "static/students.csv")
 		writer = csv.writer(response)
 
-		for curr in myList:
-			writer.writerow([curr[0], curr[1], curr[2], curr[3]])
+		writer.writerows(myList)
+
+		return response
+
+	except:
+		return render(request, "bcapp/notadmin.html")
+
+def statscsvchallenge(request):
+	try:
+		print request.session['user']
+
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename="output_stats.csv"'
+
+		myList,branchList = branchchangechallenge("static/branches.csv", "static/students.csv")
+		writer = csv.writer(response)
+
+		writer.writerow(["Program","Cutoff","Santioned Strength","Original Strength","Final Strength"])
+		writer.writerows(branchList)
 
 		return response
 
@@ -163,7 +197,7 @@ def resultview(request):
 	try:
 		print request.session['user']
 
-		myList = branchchange("static/branches.csv", "static/students.csv")
+		myList,branchList = branchchange("static/branches.csv", "static/students.csv")
 		return render(request, "bcapp/result.html", {"finalList":myList})
 
 	except:
@@ -174,7 +208,7 @@ def resultviewchallenge(request):
 	try:
 		print request.session['user']
 
-		myList = branchchangechallenge("static/branches.csv", "static/students.csv")
+		myList,branchList = branchchangechallenge("static/branches.csv", "static/students.csv")
 		return render(request, "bcapp/result.html", {"finalList":myList})
 
 	except:
