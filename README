@@ -26,6 +26,8 @@ Dependencies :
 	python-dev package		sudo apt-get install python-dev
 	ldap2-dev library		sudo apt-get install libldap2-dev
 	sasl2-dev library		sudo apt-get install libsasl2-dev
+	python-ldap				sudo apt-get install python-ldap
+
 
 Running :
 

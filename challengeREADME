@@ -1,14 +1,3 @@
-!!!! DELTE THIS AFTER READING !!!!!!!
-1) add the option for getting stats, like in our lateday submission!
-2) write about the challenge algo implementation (below)
-
-	after this upload the challenge submission
-
-3) 	(optional) in our lateday submission, do you want to write about the basic algo implementation?
-	just put it in the updatedREADME liek done here, and reupload.
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 This is the add-on submission for the challenge algorithm on top of our (base + 1 lateday) submission
 This README also includes the explanation of the challenge algorithm
 
@@ -69,7 +58,18 @@ Code :
 
 algochallenge.py :
 	
-	############## HERE ####################
+	After running the normal algorithm, to find cycle we are using an approach similar to depth first search to find cycles
+	We have a list of stuents who have not got their first prefernce in the sorted order of cpi
+	For each student in this list we try to explore the possibility of a cyclic rotation starting with this student such that there is a student who wants to come to his currently alloted branch
+	To do this we called a recursive function explore with parameters the index of student in the list(say i) and his currently alloted branch (say X)
+	explore(i,X):
+		It iterates over the preferences of student[i] and  if nobody has been denied to go that particular preference(say Y) it checks if the pref is same as X (Not possible in the first call itself) and if it so we have got a cycle. 
+		Otherwise it iterates over all of the students (in order of cpi) whose currently alloted branch is same as Y and calls the explore function with parameters as index of the student and X to recursively find the cycle ending at X.
+		We also maintain a stack to keep track of the cycle we are currently on.
+		Also we make sure that a students on which recursively explore function is being called is not already present in the stack to avoid infinite recursion loop.
+		We also pop the elements in the stack if the function returns without finding a cycle.
+	On the basis of stack(if it is non-empty) we change the branch of the students and as well as update the cutoff cpi of the branches accordingly.  
+
 	
 	
 

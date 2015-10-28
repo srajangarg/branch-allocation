@@ -97,22 +97,23 @@ def branchchangechallenge(branchfile, studentfile):
 	def explore(i,initialbranch):
 		global status
 		for pref in tempStudents[i].preferences:
-			curstack.append([i,pref])
-			if pref == initialbranch:
-				status = True;
-				return
-			for j,newStudent in enumerate(tempStudents):
-				if (newStudent.tempbranch == pref):
-					isparent = False
-					for parent in curstack:
-						if(parent[0]==j):
-							isparent = True
-							break;
-					if not isparent:
-						explore(j,initialbranch)
-						if status:
-							return
-			curstack.pop()
+			if(tempStudents[i].cpi > branches[pref].MaxUnallowedCPI):
+				curstack.append([i,pref])
+				if pref == initialbranch:
+					status = True;
+					return
+				for j,newStudent in enumerate(tempStudents):
+					if (newStudent.tempbranch == pref):
+						isparent = False
+						for parent in curstack:
+							if(parent[0]==j):
+								isparent = True
+								break;
+						if not isparent:
+							explore(j,initialbranch)
+							if status:
+								return
+				curstack.pop()
 
 	branches = []
 	students = []
@@ -192,12 +193,14 @@ def branchchangechallenge(branchfile, studentfile):
 			branch.resetdata()
 	curstack = []
 	status = False		
+	
 	for i,curStudent in enumerate(tempStudents):
 		curstack = []
 		status = False
 		explore(i,curStudent.tempbranch)
 		for j in curstack:
 			tempStudents[j[0]].tempbranch = j[1]
+			branches[j[1]].MinAllowedCPI = min(tempStudents[i].cpi,branches[j[1]].MinAllowedCPI)
 			tempStudents[j[0]].preferences = tempStudents[j[0]].preferences[0:tempStudents[j[0]].preferences.index(j[1])]
 
 	students.extend(ineligibleStudents)
