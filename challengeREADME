@@ -1,0 +1,75 @@
+!!!! DELTE THIS AFTER READING !!!!!!!
+1) add the option for getting stats, like in our lateday submission!
+2) write about the challenge algo implementation (below)
+
+	after this upload the challenge submission
+
+3) 	(optional) in our lateday submission, do you want to write about the basic algo implementation?
+	just put it in the updatedREADME liek done here, and reupload.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+This is the add-on submission for the challenge algorithm on top of our (base + 1 lateday) submission
+This README also includes the explanation of the challenge algorithm
+
+README:
+	
+	Mentioned in 1 lateday readme :
+
+		We also missed one dependency for the LDAP authentication system
+		So, the new dependency list is
+
+			####### LDAP Authentication ######
+
+			python-dev package		sudo apt-get install python-dev
+			ldap2-dev library		sudo apt-get install libldap2-dev
+			sasl2-dev library		sudo apt-get install libsasl2-dev
+			ldap module python2.7	sudo apt-get install python-ldap
+
+	Challenge :
+
+		To run the challenge algorithm, all you need to do is go to the admin portal
+		There are options to run the algorithm in both ways (regular or challenge)
+
+feature_doc.txt:
+
+	
+	Mentioned in 1 lateday readme :
+
+		We had not read the post on piazza, which stated that we had to give the statistics 
+		of the branch change too. So, this feature has been added. The admin can download
+		allotment.csv which holds all the data of each student, or the output_stats.csv,
+		which includes the stats of the branch change (from the admin portal)
+
+		Also, test cases are present in /testcases
+
+	Challenge :
+
+		The new feature to run the code with either of the algorithms, has been added to 
+		the admin portal
+
+
+Code :
+
+	Mentioned in 1 lateday readme :
+
+		There were minor changes introduced in the code, for the branch change statistics change.
+		Apart from that, nothing has changed
+
+		Removed the file bcapp/admin.py, it was not required
+
+	Challenge :
+
+		Added the file /bcapp/algochallenge.py
+
+		This contains the algorithm for the challenge part. Also some changes have been made to
+		/bcapp/views.py to actually run the algorithm when the URL is accessed
+
+		Also, HTML code added to the admin portal to give the options to run both the algorithms
+
+algochallenge.py :
+	
+	############## HERE ####################
+	
+	
+
